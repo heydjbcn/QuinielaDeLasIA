@@ -1,6 +1,6 @@
 """
-Utilidades comunes para WorldCupBench: carga de prompt, parseo de respuestas JSON,
-validación contra el esquema y guardado de predicciones.
+Common utilities for WorldCupBench: prompt loading, JSON response parsing,
+schema validation, and prediction saving.
 """
 
 import json
@@ -8,7 +8,7 @@ import os
 import re
 from datetime import datetime, timezone
 
-# Rutas base del proyecto (relativas a la raíz del repositorio).
+# Base project paths (relative to the repo root).
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROMPT_PATH = os.path.join(BASE_DIR, "prompts", "prediction_prompt.txt")
 SCHEMA_PATH = os.path.join(BASE_DIR, "schema", "predictions_schema.json")
@@ -16,40 +16,40 @@ PREDICTIONS_DIR = os.path.join(BASE_DIR, "predictions")
 
 
 def load_prompt(path: str = PROMPT_PATH) -> str:
-    """Lee y devuelve el contenido del prompt estándar."""
+    """Reads and returns the standard prompt content."""
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
 
 
 def load_schema(path: str = SCHEMA_PATH) -> dict:
-    """Carga el esquema JSON de predicciones."""
+    """Loads the JSON predictions schema."""
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def now_iso() -> str:
-    """Devuelve la fecha-hora actual en formato ISO 8601 (UTC)."""
+    """Returns the current date-time in ISO 8601 format (UTC)."""
     return datetime.now(timezone.utc).isoformat()
 
 
 def extract_json(text: str):
     """
-    Extrae un objeto JSON de la respuesta de un modelo.
+    Extracts a JSON object from a model's response.
 
-    Maneja casos comunes donde el modelo envuelve el JSON en bloques de código
-    markdown (```json ... ```) o agrega texto antes/después.
-    Devuelve el dict parseado o lanza ValueError si no se puede parsear.
+    Handles common cases where the model wraps the JSON in markdown code
+    blocks (```json ... ```) or adds text before/after.
+    Returns the parsed dict or raises ValueError if parsing fails.
     """
     if not text or not text.strip():
-        raise ValueError("Respuesta vacía del modelo.")
+        raise ValueError("Empty response from model.")
 
-    # 1) Intentar parsear directamente.
+    # 1) Try direct parsing.
     try:
         return json.loads(text)
     except json.JSONDecodeError:
         pass
 
-    # 2) Quitar fences de markdown ```json ... ``` o ``` ... ```.
+    # 2) Strip markdown fences ```json ... ``` or ``` ... ```.
     fence_match = re.search(r"```(?:json)?\s*(\{.*\})\s*```", text, re.DOTALL)
     if fence_match:
         try:
@@ -57,22 +57,22 @@ def extract_json(text: str):
         except json.JSONDecodeError:
             pass
 
-    # 3) Tomar desde la primera '{' hasta la última '}'.
+    # 3) Take from the first '{' to the last '}'.
     start = text.find("{")
     end = text.rfind("}")
     if start != -1 and end != -1 and end > start:
         candidate = text[start:end + 1]
         return json.loads(candidate)
 
-    raise ValueError("No se pudo extraer JSON válido de la respuesta del modelo.")
+    raise ValueError("Could not extract valid JSON from the model's response.")
 
 
 def validate_predictions(data: dict, schema: dict) -> tuple:
     """
-    Valida las predicciones contra el esquema JSON.
+    Validates predictions against the JSON schema.
 
-    Devuelve (es_valido: bool, mensaje: str). Si la librería `jsonschema` no
-    está instalada, hace una validación mínima de claves de nivel superior.
+    Returns (is_valid: bool, message: str). If the `jsonschema` library is not
+    installed, performs a minimal validation of top-level keys.
     """
     required_top = [
         "model_name",
@@ -92,21 +92,21 @@ def validate_predictions(data: dict, schema: dict) -> tuple:
             msgs = "; ".join(
                 f"{'/'.join(map(str, e.path))}: {e.message}" for e in errors[:5]
             )
-            return False, f"Errores de esquema: {msgs}"
+            return False, f"Schema errors: {msgs}"
         return True, "OK"
     except ImportError:
-        # Validación mínima de respaldo.
+        # Minimal fallback validation.
         missing = [k for k in required_top if k not in data]
         if missing:
-            return False, f"Faltan claves obligatorias: {missing}"
-        return True, "OK (validación mínima, instala 'jsonschema' para validación completa)"
+            return False, f"Missing required keys: {missing}"
+        return True, "OK (minimal validation, install 'jsonschema' for full validation)"
 
 
 def save_predictions(model_name: str, data: dict, predictions_dir: str = PREDICTIONS_DIR) -> str:
     """
-    Guarda las predicciones de un modelo en predictions/{model_name}_predictions.json.
+    Saves a model's predictions to predictions/{model_name}_predictions.json.
 
-    Devuelve la ruta del archivo guardado.
+    Returns the path of the saved file.
     """
     os.makedirs(predictions_dir, exist_ok=True)
     safe_name = model_name.replace("/", "_").replace(" ", "_")
