@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/mverab/WorldCupBench/schema/predictions_schema.json",
+  "title": "WorldCupBench - Esquema de Predicciones del Mundial 2026",
+  "description": "Esquema que define la estructura de las predicciones generadas por cada modelo de IA para la Copa Mundial FIFA 2026 (48 equipos, 104 partidos). Cubre fase de grupos, fase eliminatoria y posiciones finales.",
+  "type": "object",
+  "required": [
+    "model_name",
+    "timestamp",
+    "group_stage_matches",
+    "group_qualifiers",
+    "knockout_stage",
+    "final_standings"
+  ],
+  "properties": {
+    "model_name": {
+      "type": "string",
+      "description": "Nombre del modelo de IA que generó las predicciones (ej. 'GPT-5.5')."
+    },
+    "model_id": {
+      "type": "string",
+      "description": "Identificador del modelo en OpenRouter (ej. 'openai/gpt-5.5')."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Fecha y hora ISO 8601 en que se generó la predicción."
+    },
+    "group_stage_matches": {
+      "type": "array",
+      "description": "Predicciones para los 72 partidos de la fase de grupos.",
+      "items": { "$ref": "#/definitions/match_prediction" }
+    },
+    "group_qualifiers": {
+      "type": "object",
+      "description": "Equipos que clasifican a la siguiente ronda desde la fase de grupos.",
+      "required": ["first_place", "second_place", "best_third_place"],
+      "properties": {
+        "first_place": {
+          "type": "array",
+          "description": "Lista de 12 equipos que terminan primeros en sus grupos (A-L).",
+          "items": { "$ref": "#/definitions/group_position" }
+        },
+        "second_place": {
+          "type": "array",
+          "description": "Lista de 12 equipos que terminan segundos en sus grupos (A-L).",
+          "items": { "$ref": "#/definitions/group_position" }
+        },
+        "best_third_place": {
+          "type": "array",
+          "description": "Los 8 mejores terceros lugares que avanzan a la Ronda de 32.",
+          "items": { "$ref": "#/definitions/group_position" }
+        }
+      }
+    },
+    "knockout_stage": {
+      "type": "object",
+      "description": "Predicciones para la fase de eliminación directa.",
+      "required": [
+        "round_of_32",
+        "round_of_16",
+        "quarter_finals",
+        "semi_finals",
+        "third_place_match",
+        "final"
+      ],
+      "properties": {
+        "round_of_32": {
+          "type": "array",
+          "description": "Predicciones de los 16 partidos de la Ronda de 32.",
+          "items": { "$ref": "#/definitions/match_prediction" }
+        },
+        "round_of_16": {
+          "type": "array",
+          "description": "Predicciones de los 8 partidos de la Ronda de 16 (octavos).",
+          "items": { "$ref": "#/definitions/match_prediction" }
+        },
+        "quarter_finals": {
+          "type": "array",
+          "description": "Predicciones de los 4 partidos de Cuartos de Final.",
+          "items": { "$ref": "#/definitions/match_prediction" }
+        },
+        "semi_finals": {
+          "type": "array",
+          "description": "Predicciones de los 2 partidos de Semifinales.",
+          "items": { "$ref": "#/definitions/match_prediction" }
+        },
+        "third_place_match": {
+          "description": "Predicción del partido por el tercer puesto.",
+          "$ref": "#/definitions/match_prediction"
+        },
+        "final": {
+          "description": "Predicción de la Gran Final.",
+          "$ref": "#/definitions/match_prediction"
+        }
+      }
+    },
+    "final_standings": {
+      "type": "object",
+      "description": "Posiciones finales del torneo predichas por el modelo.",
+      "required": ["champion", "runner_up", "third_place", "fourth_place"],
+      "properties": {
+        "champion": {
+          "type": "string",
+          "description": "Equipo campeón (1° lugar)."
+        },
+        "runner_up": {
+          "type": "string",
+          "description": "Equipo subcampeón (2° lugar)."
+        },
+        "third_place": {
+          "type": "string",
+          "description": "Equipo en tercer lugar (3°)."
+        },
+        "fourth_place": {
+          "type": "string",
+          "description": "Equipo en cuarto lugar (4°)."
+        }
+      }
+    }
+  },
+  "definitions": {
+    "match_prediction": {
+      "type": "object",
+      "description": "Predicción individual de un partido.",
+      "required": [
+        "match_id",
+        "team_a",
+        "team_b",
+        "predicted_winner",
+        "predicted_score",
+        "confidence"
+      ],
+      "properties": {
+        "match_id": {
+          "type": "string",
+          "description": "Identificador único del partido (ej. 'GS-01', 'R32-73', 'FINAL')."
+        },
+        "stage": {
+          "type": "string",
+          "description": "Fase del torneo a la que pertenece el partido.",
+          "enum": [
+            "group_stage",
+            "round_of_32",
+            "round_of_16",
+            "quarter_finals",
+            "semi_finals",
+            "third_place_match",
+            "final"
+          ]
+        },
+        "group": {
+          "type": ["string", "null"],
+          "description": "Letra del grupo (A-L) si es fase de grupos; null en eliminatorias."
+        },
+        "team_a": {
+          "type": "string",
+          "description": "Primer equipo del enfrentamiento."
+        },
+        "team_b": {
+          "type": "string",
+          "description": "Segundo equipo del enfrentamiento."
+        },
+        "predicted_winner": {
+          "type": "string",
+          "description": "Equipo ganador predicho. En fase de grupos puede ser 'Empate'."
+        },
+        "predicted_score": {
+          "type": "object",
+          "description": "Marcador predicho.",
+          "required": ["team_a", "team_b"],
+          "properties": {
+            "team_a": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Goles predichos para team_a."
+            },
+            "team_b": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Goles predichos para team_b."
+            }
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Nivel de confianza de la predicción (0.0 a 1.0)."
+        },
+        "model_name": {
+          "type": "string",
+          "description": "Nombre del modelo que generó la predicción del partido."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Fecha y hora ISO 8601 de la predicción del partido."
+        }
+      }
+    },
+    "group_position": {
+      "type": "object",
+      "description": "Equipo clasificado con su grupo de origen.",
+      "required": ["team", "group"],
+      "properties": {
+        "team": {
+          "type": "string",
+          "description": "Nombre del equipo clasificado."
+        },
+        "group": {
+          "type": "string",
+          "description": "Letra del grupo de origen (A-L)."
+        }
+      }
+    }
+  }
+}
