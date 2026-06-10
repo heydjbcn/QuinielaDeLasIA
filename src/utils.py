@@ -128,18 +128,23 @@ def validate_predictions(data: dict, schema: dict) -> tuple:
             semantic_errors.append(f"{mid}: knockout draw prob must be 0.0")
 
     # Fase de grupos: empate permitido.
-    for match in data.get("group_stage_matches", []):
-        _check_probs(match, allow_draw=True)
+    group_matches = data.get("group_stage_matches") or []
+    if isinstance(group_matches, list):
+        for match in group_matches:
+            _check_probs(match, allow_draw=True)
 
     # Fase eliminatoria: empate no permitido.
-    knockout = data.get("knockout_stage", {})
-    for stage in ["round_of_32", "round_of_16", "quarter_finals", "semi_finals"]:
-        for match in knockout.get(stage, []):
-            _check_probs(match, allow_draw=False)
-    for key in ["third_place_match", "final"]:
-        match = knockout.get(key)
-        if match:
-            _check_probs(match, allow_draw=False)
+    knockout = data.get("knockout_stage") or {}
+    if isinstance(knockout, dict):
+        for stage in ["round_of_32", "round_of_16", "quarter_finals", "semi_finals"]:
+            stage_matches = knockout.get(stage) or []
+            if isinstance(stage_matches, list):
+                for match in stage_matches:
+                    _check_probs(match, allow_draw=False)
+        for key in ["third_place_match", "final"]:
+            match = knockout.get(key)
+            if match:
+                _check_probs(match, allow_draw=False)
 
     if semantic_errors:
         msgs = "; ".join(semantic_errors[:5])
