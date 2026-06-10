@@ -40,7 +40,7 @@ MODELS = [
     },
     {
         "name": "Qwen-3.7-Max",
-        "model_id": "qwen/qwen-3.7-max",
+        "model_id": "qwen/qwen3.7-max",
         "provider": "Alibaba",
     },
     {

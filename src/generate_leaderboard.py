@@ -23,14 +23,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import utils  # noqa: E402
 
 
-def load_all_predictions(predictions_dir: str = utils.PREDICTIONS_DIR) -> list:
-    """Load all valid prediction JSONs from the predictions directory."""
+def load_all_predictions(predictions_dir: str = None) -> list:
+    """Load all valid prediction JSONs from the pre-tournament predictions directory."""
+    if predictions_dir is None:
+        predictions_dir = os.path.join(utils.PREDICTIONS_DIR, "pre-tournament")
     predictions = []
     if not os.path.isdir(predictions_dir):
         return predictions
 
     for filename in sorted(os.listdir(predictions_dir)):
-        if not filename.endswith("_predictions.json"):
+        if not filename.endswith("_prediction.json"):
             continue
         filepath = os.path.join(predictions_dir, filename)
         try:
