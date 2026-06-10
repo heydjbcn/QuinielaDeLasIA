@@ -52,25 +52,8 @@ jobs:
             mkdir -p docs/data
             cp data/leaderboard.json docs/data/leaderboard.json
             cp data/tournament.json docs/data/tournament.json
-            # Copy predictions summary
-            python -c "
-import json, os, glob
-preds = []
-for f in sorted(glob.glob('predictions/pre-tournament/*_prediction.json')):
-    with open(f) as fp:
-        d = json.load(fp)
-    preds.append({
-        'model_name': d.get('model_name'),
-        'model_id': d.get('model_id'),
-        'champion': d.get('final_standings',{}).get('champion'),
-        'runner_up': d.get('final_standings',{}).get('runner_up'),
-        'third_place': d.get('final_standings',{}).get('third_place'),
-        'fourth_place': d.get('final_standings',{}).get('fourth_place'),
-    })
-with open('docs/data/predictions_summary.json','w') as fp:
-    json.dump(preds, fp, indent=2)
-print(f'Wrote {len(preds)} prediction summaries')
-"
+            # Generate predictions summary
+            python scripts/generate_predictions_summary.py
           fi
 
       - name: Commit and push
