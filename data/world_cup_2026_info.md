@@ -1,146 +1,146 @@
-# Informe Exhaustivo sobre el Mundial FIFA 2026 para Benchmarking de Predicción
+# Comprehensive Report on the FIFA World Cup 2026 for Prediction Benchmarking
 
-**Fecha de Elaboración:** 10 de junio de 2026
+**Date of Preparation:** June 10, 2026
 
-## Introducción
+## Introduction
 
-El presente informe tiene como objetivo proporcionar un análisis exhaustivo y detallado de la Copa Mundial de la FIFA 2026™, coorganizada por Canadá, México y Estados Unidos. Este documento está diseñado para servir como una base de información fundamental para el desarrollo de benchmarks de predicción, cubriendo la estructura del torneo, el calendario de partidos, los equipos participantes, las reglas de clasificación y las consideraciones técnicas para la automatización de datos.
+This report aims to provide a comprehensive and detailed analysis of the FIFA World Cup 2026™, co-hosted by Canada, Mexico, and the United States. This document is designed to serve as a fundamental information base for the development of prediction benchmarks, covering the tournament structure, match schedule, participating teams, qualification rules, and technical considerations for data automation.
 
-## Metodología
+## Methodology
 
-La información contenida en este informe ha sido compilada y sintetizada a partir del análisis de documentos oficiales publicados por la FIFA, comunicados de prensa y artículos de agencias de noticias de alta reputación como Reuters. La investigación se centra en la información disponible hasta la fecha del informe (10 de junio de 2026). Las limitaciones en los datos proporcionados, especialmente en lo que respecta a listas exhaustivas de equipos y fuentes de datos programáticas, se indican explícitamente en las secciones correspondientes.
-
----
-
-## 1. Estructura y Formato Oficial del Torneo
-
-La Copa Mundial de la FIFA 2026™ introduce un formato expandido y novedoso, diseñado para aumentar la participación global y el número de partidos. Tras un análisis por parte del Consejo de la FIFA para garantizar la integridad deportiva y el bienestar de los jugadores, se confirmó un modelo de 48 equipos [1, 4].
-
-**Fase de Grupos:**
-*   **Equipos:** 48 selecciones nacionales participarán en el torneo [1].
-*   **Grupos:** Los equipos se dividirán en 12 grupos de cuatro equipos cada uno, identificados de la letra A a la L [1].
-*   **Partidos:** Cada equipo jugará tres partidos en su grupo, resultando en un total de 72 partidos durante la fase de grupos [1].
-
-**Fase de Eliminación Directa:**
-*   **Criterios de Avance:** Se clasificarán para la siguiente fase:
-    1.  Los equipos que terminen en **primer y segundo lugar** de cada uno de los 12 grupos (24 equipos en total) [1, 2].
-    2.  Los **ocho mejores equipos** que terminen en tercer lugar, seleccionados según los criterios de desempate [1, 2].
-*   **Ronda de 32:** Por primera vez en la historia del torneo, se introduce una ronda de 32 equipos [1]. Esta fase de eliminación directa comenzará a finales de junio de 2026 [1].
-*   **Bracket:** A partir de la Ronda de 32, el torneo sigue un formato de eliminación simple que incluye la Ronda de 16, Cuartos de Final, Semifinales, partido por el tercer puesto y la Gran Final [1].
-*   **Total de Partidos:** El formato expandido eleva el número total de partidos del torneo a 104, un récord histórico [5]. Esto también implica que los equipos que lleguen a la final disputarán un total de ocho partidos, en lugar de los siete del formato anterior [1].
-
-Este modelo fue preferido sobre una propuesta inicial que consideraba 16 grupos de tres equipos, con el fin de mitigar riesgos de colusión y asegurar un tiempo de descanso equilibrado entre las selecciones [4].
+The information contained in this report has been compiled and synthesized from the analysis of official documents published by FIFA, press releases, and articles from highly reputable news agencies such as Reuters. The research focuses on information available up to the report date (June 10, 2026). Limitations in the provided data, especially regarding exhaustive lists of teams and programmatic data sources, are explicitly indicated in the corresponding sections.
 
 ---
 
-## 2. Fixture y Bracket de Eliminatorias
+## 1. Official Tournament Structure and Format
 
-El Sorteo Final del torneo se llevó a cabo el 5 de diciembre de 2025 en Washington, D.C., y el calendario de partidos completo fue revelado oficialmente el día siguiente [7, 9, 11].
+The FIFA World Cup 2026™ introduces an expanded and novel format, designed to increase global participation and the number of matches. Following an analysis by the FIFA Council to guarantee sporting integrity and player welfare, a 48-team model was confirmed [1, 4].
 
-### Fixture de la Fase de Grupos
+**Group Stage:**
+*   **Teams:** 48 national teams will participate in the tournament [1].
+*   **Groups:** The teams will be divided into 12 groups of four teams each, identified by letters A to L [1].
+*   **Matches:** Each team will play three matches in its group, resulting in a total of 72 matches during the group stage [1].
 
-El calendario se diseñó para optimizar la logística de viaje y el descanso de los equipos a través de las 16 ciudades anfitrionas [8]. A continuación, se presenta una tabla con algunos de los partidos más destacados de la fase de grupos, basados en la información oficial publicada [8, 9].
+**Knockout Stage:**
+*   **Advancement Criteria:** The following will qualify for the next stage:
+    1.  Teams finishing in **first and second place** in each of the 12 groups (24 teams total) [1, 2].
+    2.  The **eight best teams** finishing in third place, selected according to tie-breaker criteria [1, 2].
+*   **Round of 32:** For the first time in tournament history, a Round of 32 is introduced [1]. This knockout stage will begin in late June 2026 [1].
+*   **Bracket:** From the Round of 32 onward, the tournament follows a single-elimination format including the Round of 16, Quarter Finals, Semi-Finals, Third Place Match, and the Grand Final [1].
+*   **Total Matches:** The expanded format raises the total number of tournament matches to 104, a historic record [5]. This also means that teams reaching the final will play a total of eight matches, instead of the previous format's seven [1].
 
-**Nota:** Esta tabla contiene partidos clave confirmados, pero no representa la totalidad de los 72 partidos de la fase de grupos.
+This model was preferred over an initial proposal that considered 16 groups of three teams, in order to mitigate collusion risks and ensure balanced rest time between national teams [4].
 
-| Partido | Grupo | Fecha | Hora Local | Estadio | Ciudad |
+---
+
+## 2. Fixture and Knockout Bracket
+
+The Final Draw of the tournament was held on December 5, 2025, in Washington, D.C., and the complete match schedule was officially revealed the following day [7, 9, 11].
+
+### Group Stage Fixture
+
+The schedule was designed to optimize travel logistics and team rest across the 16 host cities [8]. Below is a table with some of the most notable group stage matches, based on officially published information [8, 9].
+
+**Note:** This table contains confirmed key matches but does not represent all 72 group stage matches.
+
+| Match | Group | Date | Local Time | Stadium | City |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| México vs. Sudáfrica | A | 11-jun-2026 | 13:00 | Estadio Azteca | Ciudad de México |
-| Canadá vs. Ganador Play-Off Europeo | B | 12-jun-2026 | 15:00 | Toronto Stadium | Toronto |
-| EE.UU. vs. Paraguay | D | 12-jun-2026 | 18:00 | Los Angeles Stadium | Los Ángeles |
-| Brasil vs. Marruecos | N/A | 13-jun-2026 | 18:00 | New York NJ Stadium | NY/NJ |
-| Alemania vs. Curazao | N/A | 14-jun-2026 | 12:00 | Houston Stadium | Houston |
-| Argentina vs. Argelia | N/A | 16-jun-2026 | N/A | Kansas City Stadium | Kansas City |
-| Inglaterra vs. Croacia | L | 17-jun-2026 | 15:00 | Dallas Stadium | Dallas |
-| Túnez vs. Japón | N/A | 20-jun-2026 | 22:00 | Monterrey Stadium | Monterrey |
-| España vs. Uruguay | N/A | 26-jun-2026 | N/A | Guadalajara Stadium | Guadalajara |
+| Mexico vs. South Africa | A | Jun 11, 2026 | 13:00 | Estadio Azteca | Mexico City |
+| Canada vs. European Play-Off Winner | B | Jun 12, 2026 | 15:00 | Toronto Stadium | Toronto |
+| USA vs. Paraguay | D | Jun 12, 2026 | 18:00 | Los Angeles Stadium | Los Angeles |
+| Brazil vs. Morocco | N/A | Jun 13, 2026 | 18:00 | New York NJ Stadium | NY/NJ |
+| Germany vs. Curacao | N/A | Jun 14, 2026 | 12:00 | Houston Stadium | Houston |
+| Argentina vs. Algeria | N/A | Jun 16, 2026 | N/A | Kansas City Stadium | Kansas City |
+| England vs. Croatia | L | Jun 17, 2026 | 15:00 | Dallas Stadium | Dallas |
+| Tunisia vs. Japan | N/A | Jun 20, 2026 | 22:00 | Monterrey Stadium | Monterrey |
+| Spain vs. Uruguay | N/A | Jun 26, 2026 | N/A | Guadalajara Stadium | Guadalajara |
 
-El partido entre Túnez y Japón en Monterrey será el número 1,000 en la historia de la Copa Mundial de la FIFA [8, 9]. La final se disputará el 19 de julio de 2026 en el New York New Jersey Stadium a las 15:00 EDT [9].
+The match between Tunisia and Japan in Monterrey will be the 1,000th in FIFA World Cup history [8, 9]. The final will be played on July 19, 2026, at New York New Jersey Stadium at 15:00 EDT [9].
 
-### Estructura del Bracket de Eliminatorias
+### Knockout Bracket Structure
 
-La estructura para los emparejamientos de la Ronda de 32 ya está predefinida, vinculando las posiciones finales de los grupos con los partidos de la fase eliminatoria [10]. Esta estructura es fundamental para predecir las rutas potenciales de cada equipo hacia la final.
+The structure for the Round of 32 pairings is already predefined, linking final group positions to knockout stage matches [10]. This structure is fundamental for predicting each team's potential path to the final.
 
-| Partido # | Emparejamiento |
+| Match # | Pairing |
 | :--- | :--- |
-| 73 | 1º H vs. 2º J |
-| 74 | 1º I vs. 3º (C/D/F/G/H) |
-| 75 | 1º C vs. 2º F |
-| 76 | 2º E vs. 2º I |
-| 77 | 1º A vs. 3º (C/E/F/H/I) |
-| 78 | 2º D vs. 2º G |
-| 79 | 1º D vs. 3º (B/E/F/I/J) |
-| 80 | 1º K vs. 3º (D/E/I/J/L) |
-| 81 | 1º G vs. 3º (A/E/H/I/J) |
-| 82 | 1º B vs. 3º (E/F/G/I/J) |
-| 84 | 1º F vs. 2º C |
-| 85 | 1º L vs. 3º (E/H/I/J/K) |
-| 87 | 2º K vs. 2º L |
-| 88 | 1º E vs. 3º (A/B/C/D/F) |
-| 91 | 1º J vs. 2º H |
-| 96 | 2º A vs. 2º B |
+| 73 | 1st H vs. 2nd J |
+| 74 | 1st I vs. 3rd (C/D/F/G/H) |
+| 75 | 1st C vs. 2nd F |
+| 76 | 2nd E vs. 2nd I |
+| 77 | 1st A vs. 3rd (C/E/F/H/I) |
+| 78 | 2nd D vs. 2nd G |
+| 79 | 1st D vs. 3rd (B/E/F/I/J) |
+| 80 | 1st K vs. 3rd (D/E/I/J/L) |
+| 81 | 1st G vs. 3rd (A/E/H/I/J) |
+| 82 | 1st B vs. 3rd (E/F/G/I/J) |
+| 84 | 1st F vs. 2nd C |
+| 85 | 1st L vs. 3rd (E/H/I/J/K) |
+| 87 | 2nd K vs. 2nd L |
+| 88 | 1st E vs. 3rd (A/B/C/D/F) |
+| 91 | 1st J vs. 2nd H |
+| 96 | 2nd A vs. 2nd B |
 
-*Nota: La asignación específica de los "mejores terceros" depende de los grupos de los que provengan, siguiendo una tabla de combinaciones preestablecida por la FIFA.*
+*Note: The specific assignment of "best third-place" teams depends on which groups they come from, following a pre-established combination table by FIFA.*
 
 ---
 
-## 3. Equipos Participantes y Grupos
+## 3. Participating Teams and Groups
 
-Para la fecha de este informe, los 48 equipos participantes ya han sido confirmados y asignados a sus respectivos grupos. Sin embargo, los materiales de investigación proporcionados no incluyen una lista exhaustiva y consolidada de todos los equipos y la composición final de los 12 grupos. A continuación, se presenta un resumen de la información disponible.
+As of the date of this report, the 48 participating teams have already been confirmed and assigned to their respective groups. However, the provided research materials do not include an exhaustive and consolidated list of all teams and the final composition of the 12 groups. Below is a summary of the available information.
 
-**Equipos de la UEFA Calificados (16 cupos):**
-Alemania, Austria, Bélgica, Bosnia y Herzegovina, Croacia, Escocia, España, Francia, Inglaterra, Noruega, Países Bajos, Portugal, República Checa, Suecia, Suiza y Turquía [6, 7].
+**Qualified UEFA Teams (16 spots):**
+Germany, Austria, Belgium, Bosnia and Herzegovina, Croatia, Scotland, Spain, France, England, Norway, Netherlands, Portugal, Czech Republic, Sweden, Switzerland, and Turkey [6, 7].
 
-**Reconstrucción Parcial de Grupos:**
-Basado en los partidos de apertura y otros encuentros mencionados, se puede inferir la asignación parcial de algunos equipos [8, 9, 11]:
+**Partial Group Reconstruction:**
+Based on the opening matches and other mentioned encounters, a partial assignment of some teams can be inferred [8, 9, 11]:
 
-| Grupo | Equipos Confirmados (Parcial) |
+| Group | Confirmed Teams (Partial) |
 | :--- | :--- |
-| Grupo A | México (posición A1), Sudáfrica |
-| Grupo B | Canadá (posición B1) |
-| Grupo D | Estados Unidos (posición D1), Paraguay |
-| Grupo L | Inglaterra, Croacia |
-| Sin Asignación Específica | Argentina, Argelia, Brasil, Marruecos, Alemania, Curazao, Túnez, Japón, España, Uruguay |
+| Group A | Mexico (position A1), South Africa |
+| Group B | Canada (position B1) |
+| Group D | United States (position D1), Paraguay |
+| Group L | England, Croatia |
+| Unassigned | Argentina, Algeria, Brazil, Morocco, Germany, Curacao, Tunisia, Japan, Spain, Uruguay |
 
 ---
 
-## 4. Reglas de Clasificación y Desempates
+## 4. Qualification and Tie-Breaker Rules
 
-### Avance a la Fase Eliminatoria
-*   Los **dos primeros equipos** de cada grupo (un total de 24) avanzan directamente a la Ronda de 32 [1, 2].
-*   Se crea una tabla con los **12 equipos que finalizaron en tercer lugar** en sus respectivos grupos. Los **ocho mejores** de esta tabla también avanzan [1, 2].
+### Advancement to Knockout Stage
+*   The **top two teams** from each group (a total of 24) advance directly to the Round of 32 [1, 2].
+*   A table is created with the **12 teams that finished in third place** in their respective groups. The **eight best** from this table also advance [1, 2].
 
-### Criterios de Desempate
-*   **Dentro de un Grupo:** El Reglamento oficial de la FIFA para la Copa Mundial 2026™ estipula el orden de los criterios para determinar las posiciones de los equipos que finalizan empatados a puntos en la fase de grupos [3]. Aunque los detalles exactos no se reproducen en las fuentes consultadas, tradicionalmente siguen este orden:
-    1.  Mayor número de puntos obtenidos.
-    2.  Mejor diferencia de goles en todos los partidos del grupo.
-    3.  Mayor número de goles marcados en todos los partidos del grupo.
-    4.  Puntos obtenidos en los partidos entre los equipos empatados.
-    5.  Diferencia de goles en los partidos entre los equipos empatados.
-    6.  Goles marcados en los partidos entre los equipos empatados.
-    7.  Puntos de juego limpio (menor cantidad de tarjetas).
-    8.  Sorteo por parte de la FIFA.
+### Tie-Breaker Criteria
+*   **Within a Group:** The official FIFA Regulations for the 2026 World Cup™ stipulate the order of criteria to determine the positions of teams tied on points in the group stage [3]. Although the exact details are not reproduced in the consulted sources, they traditionally follow this order:
+    1.  Greater number of points obtained.
+    2.  Greater goal difference in all group matches.
+    3.  Greater number of goals scored in all group matches.
+    4.  Points obtained in matches between the tied teams.
+    5.  Goal difference in matches between the tied teams.
+    6.  Goals scored in matches between the tied teams.
+    7.  Fair play points (fewer cards).
+    8.  FIFA draw.
 
-*   **Ranking de Mejores Terceros:** Para determinar los ocho mejores terceros, se utilizan los mismos criterios principales aplicados al rendimiento en la fase de grupos (Puntos, Diferencia de Goles, Goles a Favor, etc.) [2].
-
----
-
-## 5. APIs Públicas/Gratuitas para Datos en Tiempo Real
-
-**Los materiales de investigación proporcionados para la elaboración de este informe no contenían información sobre APIs públicas o gratuitas útiles para la automatización de la recolección de resultados y calendarios de fútbol en tiempo real.**
-
-Para fines de automatización, generalmente se recomienda explorar las siguientes vías (no verificadas en la investigación):
-*   APIs oficiales ofrecidas por grandes proveedores de datos deportivos (ej. Opta, Sportradar), que suelen ser de pago.
-*   APIs no oficiales o de crowdsourcing, que pueden tener limitaciones de fiabilidad y tasa de peticiones.
-*   Web scraping de sitios de resultados deportivos, sujeto a términos de servicio y posibles cambios en la estructura de las páginas.
+*   **Best Third-Place Ranking:** To determine the eight best third-place teams, the same main criteria applied to group stage performance are used (Points, Goal Difference, Goals Scored, etc.) [2].
 
 ---
 
-## 6. Polymarket y Mercados de Predicción
+## 5. Public/Free APIs for Real-Time Data
 
-**La investigación realizada no arrojó información específica sobre la existencia de mercados en Polymarket relacionados con la Copa Mundial de la FIFA 2026™, ni sobre cómo consultar sus datos de forma programática.**
+**The research materials provided for the preparation of this report did not contain information about public or free APIs useful for automating the collection of football results and schedules in real time.**
 
-Polymarket, al ser una plataforma de mercados de predicción descentralizada, teóricamente permite la creación de mercados sobre cualquier evento futuro verificable. Para consultar programáticamente, generalmente se interactúa directamente con los contratos inteligentes de la plataforma en una blockchain compatible (como Polygon). Esto requeriría el uso de bibliotecas como Ethers.js o Web3.py para leer el estado de los contratos que representan los mercados de interés, extrayendo datos como precios actuales (odds), volumen y resolución del mercado. Sin embargo, no se ha podido confirmar la disponibilidad de mercados específicos para este torneo en las fuentes analizadas.
+For automation purposes, the following avenues are generally recommended (not verified in this research):
+*   Official APIs offered by major sports data providers (e.g., Opta, Sportradar), which are usually paid.
+*   Unofficial or crowdsourcing APIs, which may have reliability and rate limit limitations.
+*   Web scraping of sports results sites, subject to terms of service and possible page structure changes.
+
+---
+
+## 6. Polymarket and Prediction Markets
+
+**The research conducted did not yield specific information about the existence of Polymarket markets related to the FIFA World Cup 2026™, nor about how to programmatically query their data.**
+
+Polymarket, being a decentralized prediction market platform, theoretically allows the creation of markets on any verifiable future event. To query programmatically, one would generally interact directly with the platform's smart contracts on a compatible blockchain (such as Polygon). This would require the use of libraries such as Ethers.js or Web3.py to read the state of contracts representing markets of interest, extracting data such as current prices (odds), volume, and market resolution. However, the availability of specific markets for this tournament could not be confirmed in the analyzed sources.
 
 ---
 
