@@ -9,14 +9,14 @@
         "MEX",
         "RSA",
         "KOR",
-        "DEN"
+        "CZE"
       ]
     },
     {
       "group": "B",
       "teams": [
         "CAN",
-        "ITA",
+        "BIH",
         "QAT",
         "SUI"
       ]
@@ -53,7 +53,7 @@
       "teams": [
         "NED",
         "JPN",
-        "UKR",
+        "SWE",
         "TUN"
       ]
     },
@@ -80,7 +80,7 @@
       "teams": [
         "FRA",
         "SEN",
-        "CMR",
+        "IRQ",
         "NOR"
       ]
     },
@@ -97,7 +97,7 @@
       "group": "K",
       "teams": [
         "POR",
-        "JAM",
+        "COD",
         "UZB",
         "COL"
       ]
@@ -128,7 +128,7 @@
       "match_id": 2,
       "group": "A",
       "home_team": "KOR",
-      "away_team": "DEN",
+      "away_team": "CZE",
       "date": "2026-06-11",
       "venue": {
         "stadium": "BMO Field",
@@ -150,7 +150,7 @@
       "match_id": 4,
       "group": "A",
       "home_team": "RSA",
-      "away_team": "DEN",
+      "away_team": "CZE",
       "date": "2026-06-16",
       "venue": {
         "stadium": "MetLife Stadium",
@@ -161,7 +161,7 @@
       "match_id": 5,
       "group": "A",
       "home_team": "MEX",
-      "away_team": "DEN",
+      "away_team": "CZE",
       "date": "2026-06-22",
       "venue": {
         "stadium": "NRG Stadium",
@@ -183,7 +183,7 @@
       "match_id": 7,
       "group": "B",
       "home_team": "CAN",
-      "away_team": "ITA",
+      "away_team": "BIH",
       "date": "2026-06-12",
       "venue": {
         "stadium": "BMO Field",
@@ -215,7 +215,7 @@
     {
       "match_id": 10,
       "group": "B",
-      "home_team": "ITA",
+      "home_team": "BIH",
       "away_team": "SUI",
       "date": "2026-06-17",
       "venue": {
@@ -237,7 +237,7 @@
     {
       "match_id": 12,
       "group": "B",
-      "home_team": "ITA",
+      "home_team": "BIH",
       "away_team": "QAT",
       "date": "2026-06-21",
       "venue": {
@@ -457,7 +457,7 @@
     {
       "match_id": 32,
       "group": "F",
-      "home_team": "UKR",
+      "home_team": "SWE",
       "away_team": "TUN",
       "date": "2026-06-15",
       "venue": {
@@ -469,7 +469,7 @@
       "match_id": 33,
       "group": "F",
       "home_team": "NED",
-      "away_team": "UKR",
+      "away_team": "SWE",
       "date": "2026-06-20",
       "venue": {
         "stadium": "BC Place",
@@ -502,7 +502,7 @@
       "match_id": 36,
       "group": "F",
       "home_team": "JPN",
-      "away_team": "UKR",
+      "away_team": "SWE",
       "date": "2026-06-25",
       "venue": {
         "stadium": "BMO Field",
@@ -655,7 +655,7 @@
     {
       "match_id": 50,
       "group": "I",
-      "home_team": "CMR",
+      "home_team": "IRQ",
       "away_team": "NOR",
       "date": "2026-06-15",
       "venue": {
@@ -667,7 +667,7 @@
       "match_id": 51,
       "group": "I",
       "home_team": "FRA",
-      "away_team": "CMR",
+      "away_team": "IRQ",
       "date": "2026-06-20",
       "venue": {
         "stadium": "BMO Field",
@@ -700,7 +700,7 @@
       "match_id": 54,
       "group": "I",
       "home_team": "SEN",
-      "away_team": "CMR",
+      "away_team": "IRQ",
       "date": "2026-06-25",
       "venue": {
         "stadium": "NRG Stadium",
@@ -777,7 +777,7 @@
       "match_id": 61,
       "group": "K",
       "home_team": "POR",
-      "away_team": "JAM",
+      "away_team": "COD",
       "date": "2026-06-15",
       "venue": {
         "stadium": "Hard Rock Stadium",
@@ -809,7 +809,7 @@
     {
       "match_id": 64,
       "group": "K",
-      "home_team": "JAM",
+      "home_team": "COD",
       "away_team": "COL",
       "date": "2026-06-20",
       "venue": {
@@ -831,7 +831,7 @@
     {
       "match_id": 66,
       "group": "K",
-      "home_team": "JAM",
+      "home_team": "COD",
       "away_team": "UZB",
       "date": "2026-06-25",
       "venue": {
