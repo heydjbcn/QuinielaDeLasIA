@@ -26,6 +26,15 @@
     .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
     .ai-box { background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F; padding: 20px 22px; font-size: 15px; line-height: 1.65; color: #2E2B22; }
     .ai-stamp { display: inline-block; margin-top: 12px; font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #8A8470; border: 1.5px solid #B9AF94; border-radius: 2px; padding: 3px 8px; }
+    .qe-rival { display: none; }
+    /* Picks de España: en móvil el modelo va arriba y los 3 marcadores en fila debajo */
+    @media (max-width: 640px) {
+      .qe-table { min-width: 0 !important; }
+      .qe-head { display: none !important; }
+      .qe-row { grid-template-columns: repeat(3, 1fr) !important; row-gap: 8px !important; padding: 14px 16px !important; }
+      .qe-name { grid-column: 1 / -1; }
+      .qe-rival { display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8470; margin-bottom: 3px; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -91,8 +100,8 @@
       <span class="sub">Marcadores congelados el 10 de junio</span>
     </div>
     <div style="overflow-x: auto; margin-top: 18px;">
-      <div style="min-width: 640px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F;">
-        <div id="esp-picks-head" style="display: grid; grid-template-columns: minmax(170px, 1.4fr) repeat(3, 1fr); gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 2px solid #17150F; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #4A463A;"></div>
+      <div class="qe-table" style="min-width: 640px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F;">
+        <div id="esp-picks-head" class="qe-head" style="display: grid; grid-template-columns: minmax(170px, 1.4fr) repeat(3, 1fr); gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 2px solid #17150F; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #4A463A;"></div>
         <div id="esp-picks-rows"></div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 10px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">
           <span><span style="display: inline-block; width: 10px; height: 10px; background: #BFE3C6; border: 1px solid #17150F; vertical-align: -1px;"></span> Signo acertado</span>
@@ -123,6 +132,6 @@
     <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA &#8599;</a>
   </footer>
 
-  <script src="espana.js?v=1"></script>
+  <script src="espana.js?v=2"></script>
 </body>
 </html>

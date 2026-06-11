@@ -174,8 +174,10 @@ function renderPicksTable() {
   const models = picksData?.models || [];
   $('esp-picks-rows').innerHTML = models.map(md => {
     const cells = ms.map(m => {
+      const rival = m.home_team === 'ESP' ? m.away_team : m.home_team;
+      const hint = `<span class="qe-rival">vs ${esc(rival)}</span>`;
       const p = (picksData?.picks?.[gsId(m)] || {})[md.name];
-      if (!p) return '<span style="text-align: center; color: #8A8470;">—</span>';
+      if (!p) return `<span style="text-align: center; color: #8A8470;">${hint}—</span>`;
       const res = result(m);
       let bg = 'transparent', star = '';
       if (res) {
@@ -183,11 +185,11 @@ function renderPicksTable() {
         bg = p.r === o ? '#BFE3C6' : '#EFC9C4';
         if (p.s[0] === res.s[0] && p.s[1] === res.s[1]) star = ' <span style="font-size: 12px;">&#9733;</span>';
       }
-      return `<span class="bebas" style="text-align: center; font-size: 22px; color: #0A5B2D; background: ${bg}; border-radius: 3px; padding: 2px 0;">${p.s.join('–')}${star}</span>`;
+      return `<span style="text-align: center;">${hint}<span class="bebas" style="display: block; font-size: 22px; color: #0A5B2D; background: ${bg}; border-radius: 3px; padding: 2px 0;">${p.s.join('–')}${star}</span></span>`;
     }).join('');
     return `
-      <div class="wcb-row" style="display: grid; grid-template-columns: minmax(170px, 1.4fr) repeat(3, 1fr); gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 1px solid #DCD3BC;">
-        <div style="min-width: 0;">
+      <div class="wcb-row qe-row" style="display: grid; grid-template-columns: minmax(170px, 1.4fr) repeat(3, 1fr); gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 1px solid #DCD3BC;">
+        <div class="qe-name" style="min-width: 0;">
           <div style="font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(md.name)}</div>
           <div style="font-size: 9px; font-weight: 600; letter-spacing: 0.14em; color: #8A8470; text-transform: uppercase;">${esc(md.provider)}</div>
         </div>

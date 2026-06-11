@@ -243,18 +243,18 @@ function renderQuiniela(m, entries, res) {
   }).sort((a, b) => b.conf - a.conf);
 
   $('picks-rows').innerHTML = rows.map(({ e, conf, r, pickBg, exact }) => {
-    const circle = (mark, on) => `<span style="width: 34px; height: 34px; border: 2px solid #17150F; border-radius: 50%; display: grid; place-items: center; font-weight: 900; font-size: 18px; color: #C8372D; background: ${on ? pickBg : 'transparent'};">${on ? '✕' : ''}</span>`;
+    const circle = (mark, on) => `<span style="width: 34px; height: 34px; border: 2px solid #17150F; border-radius: 50%; display: grid; place-items: center; font-weight: 900; font-size: 18px; color: #C8372D; background: ${on ? pickBg : 'transparent'};">${on ? '✕' : `<span class="q-hint" style="color: #C9C0A6; font-size: 12px; font-weight: 800;">${mark}</span>`}</span>`;
     return `
-      <div class="wcb-row" style="display: grid; grid-template-columns: minmax(190px, 1.5fr) 80px 150px minmax(130px, 1fr) 80px; gap: 12px; align-items: center; padding: 11px 18px; border-bottom: 1px solid #DCD3BC;">
-        <div style="min-width: 0;">
+      <div class="wcb-row q-row" style="display: grid; grid-template-columns: minmax(190px, 1.5fr) 80px 150px minmax(130px, 1fr) 80px; gap: 12px; align-items: center; padding: 11px 18px; border-bottom: 1px solid #DCD3BC;">
+        <div class="q-name" style="min-width: 0;">
           <div style="font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(e.md.name)}</div>
           <div style="font-size: 9px; font-weight: 600; letter-spacing: 0.14em; color: #8A8470; text-transform: uppercase;">${esc(e.md.provider)}</div>
         </div>
-        <div class="bebas" style="font-size: 26px; text-align: center; color: #0A5B2D;">${e.p.s.join('–')}${exact ? ' <span style="font-size: 14px;">★</span>' : ''}</div>
-        <div style="display: grid; grid-template-columns: repeat(3, 34px); gap: 8px; justify-content: center;">
+        <div class="q-score bebas" style="font-size: 26px; text-align: center; color: #0A5B2D;">${e.p.s.join('–')}${exact ? ' <span style="font-size: 14px;">★</span>' : ''}</div>
+        <div class="q-lev" style="display: grid; grid-template-columns: repeat(3, 34px); gap: 8px; justify-content: center;">
           ${circle('L', r === 'home')}${circle('E', r === 'draw')}${circle('V', r === 'away')}
         </div>
-        <div style="display: flex; flex-direction: column; gap: 5px;">
+        <div class="q-prob" style="display: flex; flex-direction: column; gap: 5px;">
           <div style="display: flex; height: 10px; border: 1.5px solid #17150F; border-radius: 2px; overflow: hidden; background: #FBF7EA;">
             <div style="width: ${pct(e.p.p[0])}; background: #0A6B33;"></div>
             <div style="width: ${pct(e.p.p[1])}; background: #B9AF94;"></div>
@@ -262,7 +262,7 @@ function renderQuiniela(m, entries, res) {
           </div>
           <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #6B675C;">${Math.round(e.p.p[0] * 100)} · ${Math.round(e.p.p[1] * 100)} · ${Math.round(e.p.p[2] * 100)}</div>
         </div>
-        <div class="bebas" style="font-size: 22px; text-align: right; color: #17150F;">${pct(conf)}</div>
+        <div class="q-conf bebas" style="font-size: 22px; text-align: right; color: #17150F;">${pct(conf)}</div>
       </div>`;
   }).join('');
 }

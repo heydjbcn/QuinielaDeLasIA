@@ -26,6 +26,24 @@
     .section-head .sub { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6B675C; }
     .nav-item { display: inline-flex; align-items: center; gap: 6px; }
     .nav-item svg { width: 13px; height: 13px; flex: none; }
+    /* Quiniela: en móvil cada modelo es una tarjeta apilada, no una fila de tabla */
+    .q-hint { display: none; }
+    @media (max-width: 640px) {
+      .q-hint { display: inline; }
+      .q-table { min-width: 0 !important; }
+      .q-head { display: none !important; }
+      .q-row {
+        grid-template-columns: 1fr auto !important;
+        grid-template-areas: "name score" "lev lev" "prob conf";
+        row-gap: 10px !important;
+        padding: 14px 16px !important;
+      }
+      .q-name { grid-area: name; }
+      .q-score { grid-area: score; }
+      .q-lev { grid-area: lev; justify-content: start !important; }
+      .q-prob { grid-area: prob; }
+      .q-conf { grid-area: conf; align-self: center; }
+    }
     .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
   </style>
 </head>
@@ -142,8 +160,8 @@
     </div>
 
     <div style="overflow-x: auto; margin-top: 18px;">
-      <div style="min-width: 700px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F;">
-        <div style="display: grid; grid-template-columns: minmax(190px, 1.5fr) 80px 150px minmax(130px, 1fr) 80px; gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 2px solid #17150F; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #4A463A;">
+      <div class="q-table" style="min-width: 700px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F;">
+        <div class="q-head" style="display: grid; grid-template-columns: minmax(190px, 1.5fr) 80px 150px minmax(130px, 1fr) 80px; gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 2px solid #17150F; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #4A463A;">
           <span>Modelo</span>
           <span style="text-align: center;">Marcador</span>
           <span style="display: grid; grid-template-columns: repeat(3, 34px); gap: 8px; justify-content: center; text-align: center;"><span>L</span><span>E</span><span>V</span></span>
@@ -235,6 +253,6 @@
     <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA ↗</a>
   </footer>
 
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
