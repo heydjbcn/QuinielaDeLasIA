@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>España — La quiniela de las IA · Mundial 2026</title>
+  <meta name="description" content="La selección española en el Mundial 2026: calendario con horas de España, estado del equipo, predicciones de las IA y noticias de la Roja.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='%23F2EBDA' stroke='%2317150F' stroke-width='6'/%3E%3Cpolygon points='50,32 67,44 60,64 40,64 33,44' fill='%2317150F'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #F2EBDA; }
+    * { box-sizing: border-box; }
+    ::selection { background: #C8372D; color: #F6F0E1; }
+    @keyframes wcb-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+    .wcb-blink { animation: wcb-blink 1.4s ease-in-out infinite; }
+    .wcb-row:hover { background: #F3ECD8; }
+    .wcb-link:hover { color: #0A6B33; }
+    body { min-height: 100vh; background: #F2EBDA; color: #17150F; font-family: 'Archivo', sans-serif; }
+    .bebas { font-family: 'Bebas Neue', sans-serif; }
+    .section-pad { padding-left: clamp(16px, 4vw, 56px); padding-right: clamp(16px, 4vw, 56px); }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 3px solid #17150F; padding-bottom: 10px; }
+    .section-head h2 { margin: 0; font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 4.5vw, 52px); line-height: 1; letter-spacing: 0.01em; }
+    .section-head .sub { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6B675C; }
+    .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
+    .ai-box { background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F; padding: 20px 22px; font-size: 15px; line-height: 1.65; color: #2E2B22; }
+    .ai-stamp { display: inline-block; margin-top: 12px; font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #8A8470; border: 1.5px solid #B9AF94; border-radius: 2px; padding: 3px 8px; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BARRA SUPERIOR ===== -->
+  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 10px clamp(16px, 4vw, 56px); border-bottom: 2px solid #17150F; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A463A;">
+    <a href="index.html" class="wcb-link" style="color: #17150F; text-decoration: none; font-weight: 800;">&larr; Portada</a>
+    <span id="bar-date"></span>
+    <span style="display: flex; align-items: center; gap: 8px;"><span class="wcb-blink" style="width: 8px; height: 8px; border-radius: 50%; background: #C8372D;"></span><span id="bar-mid">La Roja, bajo la lupa de las IA</span></span>
+  </div>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="section-pad" style="padding-top: clamp(28px, 4vw, 48px); text-align: center;">
+    <div class="bebas" style="font-size: clamp(56px, 13vw, 132px); line-height: 0.9; letter-spacing: 0.01em; color: #17150F;"><img src="https://flagcdn.com/es.svg" alt="ESP" style="height: 0.62em; width: auto; border: 2px solid #17150F; border-radius: 3px; vertical-align: baseline; margin-right: 0.12em;">ESPA&Ntilde;A <span style="color: #C8372D;">2026</span></div>
+    <div style="display: flex; align-items: center; gap: 14px; margin-top: 14px;">
+      <span style="flex: 1; height: 2px; background: #17150F;"></span>
+      <span style="font-size: clamp(11px, 1.4vw, 13px); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;">La Roja en la quiniela de las IA</span>
+      <span style="flex: 1; height: 2px; background: #17150F;"></span>
+    </div>
+    <div id="header-sub" style="margin-top: 6px; border-bottom: 6px double #17150F; padding-bottom: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">Grupo H &middot; Cabo Verde &middot; Arabia Saud&iacute; &middot; Uruguay</div>
+  </header>
+
+  <!-- ===== SUS PARTIDOS ===== -->
+  <section class="section-pad" style="padding-top: clamp(28px, 4vw, 44px); padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2>Sus partidos</h2>
+      <span class="sub">Hora peninsular espa&ntilde;ola</span>
+    </div>
+    <div id="esp-matches" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 24px;"></div>
+  </section>
+
+  <!-- ===== ASÍ LLEGA ESPAÑA ===== -->
+  <section class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2>As&iacute; llega Espa&ntilde;a</h2>
+      <span id="esp-sub" class="sub"></span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 24px; align-items: start;">
+      <div class="ai-box" style="grid-column: span 1;">
+        <div id="estado-espana">Cargando&hellip;</div>
+        <span class="ai-stamp" id="stamp-espana">Redactado por IA</span>
+      </div>
+      <div id="esp-datos" style="display: flex; flex-direction: column; gap: 12px;"></div>
+    </div>
+  </section>
+
+  <!-- ===== EL RIVAL ===== -->
+  <section class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2 id="rival-title">El rival</h2>
+      <span id="rival-sub" class="sub"></span>
+    </div>
+    <div style="margin-top: 24px;" class="ai-box">
+      <div id="estado-rival">Cargando&hellip;</div>
+      <span class="ai-stamp" id="stamp-rival">Redactado por IA</span>
+    </div>
+  </section>
+
+  <!-- ===== LA QUINIELA PARA ESPAÑA ===== -->
+  <section class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2>La quiniela de las IA para Espa&ntilde;a</h2>
+      <span class="sub">Marcadores congelados el 10 de junio</span>
+    </div>
+    <div style="overflow-x: auto; margin-top: 18px;">
+      <div style="min-width: 640px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F;">
+        <div id="esp-picks-head" style="display: grid; grid-template-columns: minmax(170px, 1.4fr) repeat(3, 1fr); gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 2px solid #17150F; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #4A463A;"></div>
+        <div id="esp-picks-rows"></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 10px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #BFE3C6; border: 1px solid #17150F; vertical-align: -1px;"></span> Signo acertado</span>
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #EFC9C4; border: 1px solid #17150F; vertical-align: -1px;"></span> Signo fallado</span>
+          <span>&#9733; marcador exacto</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NOTICIAS ===== -->
+  <section class="section-pad" style="padding-top: 44px; padding-bottom: 56px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2>Noticias de la Roja</h2>
+      <span id="news-sub" class="sub"></span>
+    </div>
+    <div style="margin-top: 24px;" class="ai-box">
+      <div id="resumen-noticias" style="font-size: 16px;">Cargando&hellip;</div>
+      <span class="ai-stamp" id="stamp-noticias">Resumen redactado por IA</span>
+    </div>
+    <div id="news-list" style="margin-top: 18px; border-top: 2px solid #17150F;"></div>
+  </section>
+
+  <!-- ===== PIE ===== -->
+  <footer style="border-top: 6px double #17150F; padding: 22px clamp(16px, 4vw, 56px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+    <a href="index.html" class="wcb-link bebas" style="font-size: 20px; letter-spacing: 0.04em; color: #17150F; text-decoration: none;">MUNDIAL <span style="color: #0A6B33;">2026</span></a>
+    <span style="font-size: 12px; font-style: italic; color: #6B675C;">El Mundial es el eval definitivo.</span>
+    <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA &#8599;</a>
+  </footer>
+
+  <script src="espana.js?v=1"></script>
+</body>
+</html>
