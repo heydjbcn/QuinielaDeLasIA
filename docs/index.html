@@ -1,138 +1,212 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WorldCupBench — IA vs Mundial FIFA 2026</title>
-  <meta name="description" content="10 modelos de IA punteros predijeron todos los partidos del Mundial FIFA 2026. ¿Quién acertó?">
+  <title>WorldCupBench — La quiniela de las máquinas · Mundial 2026</title>
+  <meta name="description" content="10 modelos de IA punteros rellenaron su quiniela completa del Mundial FIFA 2026 antes del pitido inicial. Cada resultado real reparte los puntos.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            bg: { DEFAULT: '#0a0e1a', card: '#111827', hover: '#1a2235' },
-            gold: { DEFAULT: '#f59e0b', light: '#fbbf24', dark: '#d97706' },
-            accent: { blue: '#3b82f6', green: '#10b981', red: '#ef4444', purple: '#8b5cf6' },
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
-    .glow { box-shadow: 0 0 20px rgba(245, 158, 11, 0.15); }
-    .medal-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); }
-    .medal-2 { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); }
-    .medal-3 { background: linear-gradient(135deg, #cd7f32, #a0522d); }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0e1a; }
-    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
-    .tab-active { border-bottom: 2px solid #f59e0b; color: #f59e0b; }
-    .tab-inactive { border-bottom: 2px solid transparent; color: #9ca3af; }
-    .tab-inactive:hover { color: #d1d5db; }
-    .fade-in { animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse-gold { 0%, 100% { box-shadow: 0 0 5px rgba(245,158,11,0.3); } 50% { box-shadow: 0 0 20px rgba(245,158,11,0.5); } }
-    .pulse-gold { animation: pulse-gold 2s infinite; }
+    html, body { margin: 0; padding: 0; background: #F2EBDA; }
+    * { box-sizing: border-box; }
+    ::selection { background: #0A6B33; color: #F6F0E1; }
+    @keyframes wcb-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+    .wcb-blink { animation: wcb-blink 1.4s ease-in-out infinite; }
+    .wcb-row:hover { background: #F3ECD8; }
+    .wcb-trow:hover { background: #EDE5CF; }
+    .wcb-link:hover { color: #0A6B33; }
+    body { min-height: 100vh; background: #F2EBDA; color: #17150F; font-family: 'Archivo', sans-serif; }
+    .bebas { font-family: 'Bebas Neue', sans-serif; }
+    .section-pad { padding-left: clamp(16px, 4vw, 56px); padding-right: clamp(16px, 4vw, 56px); }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 3px solid #17150F; padding-bottom: 10px; }
+    .section-head h2 { margin: 0; font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 4.5vw, 52px); line-height: 1; letter-spacing: 0.01em; }
+    .section-head .sub { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6B675C; }
   </style>
 </head>
-<body class="bg-bg text-gray-100 min-h-screen">
+<body>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-50 glass border-b border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="text-3xl">⚽</span>
-        <div>
-          <h1 class="text-xl font-bold text-white">WorldCupBench</h1>
-          <p class="text-xs text-gray-400">Modelos de IA vs Mundial FIFA 2026</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <span id="last-updated" class="text-xs text-gray-500"></span>
-        <a href="https://github.com/mverab/WorldCupBench" target="_blank" class="text-gray-400 hover:text-white transition">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        </a>
-      </div>
+  <!-- ===== BARRA SUPERIOR ===== -->
+  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 10px clamp(16px, 4vw, 56px); border-bottom: 2px solid #17150F; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A463A;">
+    <span id="bar-date">Mundial 2026</span>
+    <span style="display: flex; align-items: center; gap: 8px;"><span class="wcb-blink" style="width: 8px; height: 8px; border-radius: 50%; background: #C8372D;"></span><span id="bar-mid">Hoy ruedan el balón y los modelos</span></span>
+    <span>Predicciones congeladas · 10 jun 2026</span>
+  </div>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="section-pad" style="padding-top: clamp(28px, 4vw, 48px); text-align: center;">
+    <div class="bebas" style="font-size: clamp(56px, 11vw, 132px); line-height: 0.9; letter-spacing: 0.01em; color: #17150F;">WORLDCUP<span style="color: #0A6B33;">BENCH</span></div>
+    <div style="display: flex; align-items: center; gap: 14px; margin-top: 14px;">
+      <span style="flex: 1; height: 2px; background: #17150F;"></span>
+      <span style="font-size: clamp(11px, 1.4vw, 13px); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;">La quiniela de las máquinas · Mundial 2026</span>
+      <span style="flex: 1; height: 2px; background: #17150F;"></span>
     </div>
+    <div id="header-sub" style="margin-top: 6px; border-bottom: 6px double #17150F; padding-bottom: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">10 modelos frontera · 104 partidos · 1 mismo prompt · 0 ediciones post-hoc</div>
   </header>
 
-  <!-- Navigation Tabs -->
-  <nav class="max-w-7xl mx-auto px-4 sm:px-6 pt-6">
-    <div class="flex gap-6 border-b border-gray-800 overflow-x-auto">
-      <button onclick="showTab('leaderboard')" id="tab-leaderboard" class="tab-active pb-3 text-sm font-medium whitespace-nowrap transition">🏆 Clasificación</button>
-      <button onclick="showTab('consensus')" id="tab-consensus" class="tab-inactive pb-3 text-sm font-medium whitespace-nowrap transition">🔮 Consenso</button>
-      <button onclick="showTab('matches')" id="tab-matches" class="tab-inactive pb-3 text-sm font-medium whitespace-nowrap transition">⚽ Partidos</button>
-      <button onclick="showTab('bracket')" id="tab-bracket" class="tab-inactive pb-3 text-sm font-medium whitespace-nowrap transition">🏅 Cuadro</button>
+  <!-- ===== TITULAR ===== -->
+  <section class="section-pad" style="padding-top: clamp(28px, 4vw, 44px); padding-bottom: 8px; max-width: 1140px; margin: 0 auto;">
+    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <span id="head-tag" style="background: #C8372D; color: #F6F0E1; font-weight: 800; font-size: 11px; letter-spacing: 0.16em; padding: 4px 10px; text-transform: uppercase;">Arranca el Mundial</span>
+      <span id="head-meta" style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: #6B675C; text-transform: uppercase;"></span>
     </div>
-  </nav>
+    <h1 id="head-title" class="bebas" style="margin: 14px 0 0; font-size: clamp(44px, 7.5vw, 96px); line-height: 0.92; letter-spacing: 0.005em; max-width: 900px; font-weight: 400;">Hoy empiezan a jugar las máquinas</h1>
+    <p id="head-p" style="margin: 16px 0 0; font-size: clamp(15px, 1.7vw, 18px); line-height: 1.6; color: #4A463A; max-width: 640px;">Diez modelos llenaron su quiniela completa — los 104 partidos, con marcador y probabilidades — antes del pitido inicial. Quedó firmada y congelada. Desde hoy, cada resultado real reparte los puntos.</p>
+  </section>
 
-  <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+  <!-- ===== MARCADOR + SELECTOR ===== -->
+  <section class="section-pad" style="padding-top: 24px; padding-bottom: 12px; max-width: 1140px; margin: 0 auto;">
 
-    <!-- Leaderboard Tab -->
-    <section id="section-leaderboard" class="fade-in">
-      <!-- Stats Row -->
-      <div id="stats-row" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
+    <!-- boletos selectores -->
+    <div id="chips" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 14px;"></div>
 
-      <!-- Podium -->
-      <div id="podium" class="mb-8"></div>
+    <!-- pizarra de cancha -->
+    <div style="position: relative; background: linear-gradient(180deg, #0C7239 0%, #085427 100%); border: 3px solid #17150F; border-radius: 6px; box-shadow: 6px 6px 0 #17150F; overflow: hidden;">
+      <svg viewBox="0 0 1100 420" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.5;">
+        <rect x="40" y="-200" width="1020" height="560" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="3"></rect>
+        <line x1="40" y1="210" x2="1060" y2="210" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="3"></line>
+        <circle cx="550" cy="210" r="110" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="3"></circle>
+        <circle cx="550" cy="210" r="5" fill="#FFFFFF" fill-opacity="0.4"></circle>
+        <rect x="0" y="0" width="1100" height="420" fill="url(#wcbStripes)"></rect>
+        <defs>
+          <pattern id="wcbStripes" width="160" height="420" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="80" height="420" fill="#FFFFFF" fill-opacity="0.03"></rect>
+          </pattern>
+        </defs>
+      </svg>
 
-      <!-- Full Table -->
-      <div class="glass rounded-xl overflow-hidden">
-        <div class="p-4 border-b border-gray-800">
-          <h2 class="text-lg font-bold">Clasificación completa</h2>
+      <div style="position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 14px 22px; border-bottom: 2px solid rgba(255,255,255,0.3);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span id="f-group" class="bebas" style="background: #F6F0E1; color: #0A5B2D; font-size: 15px; letter-spacing: 0.08em; padding: 2px 10px; border-radius: 2px;"></span>
+          <span style="color: rgba(246,240,225,0.75); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;">Fase de grupos</span>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-bg">
-              <tr class="text-gray-400 text-left">
-                <th class="px-4 py-3 w-12">#</th>
-                <th class="px-4 py-3">Modelo</th>
-                <th class="px-4 py-3 text-center">Evaluados</th>
-                <th class="px-4 py-3 text-center">Aciertos</th>
-                <th class="px-4 py-3 text-center">Exactos</th>
-                <th class="px-4 py-3 text-center">Precisión</th>
-                <th class="px-4 py-3 text-center">Brier (medio)</th>
-                <th class="px-4 py-3 text-center">Pts cuadro</th>
-                <th class="px-4 py-3">🏆 Campeón</th>
-              </tr>
-            </thead>
-            <tbody id="leaderboard-table"></tbody>
-          </table>
+        <span id="f-venue" style="color: rgba(246,240,225,0.85); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;"></span>
+        <span id="f-status" style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;"></span>
+      </div>
+
+      <div style="position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: clamp(8px, 3vw, 28px); padding: clamp(24px, 4vw, 40px) clamp(14px, 3vw, 36px) clamp(16px, 3vw, 28px); color: #F6F0E1;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0;">
+          <span id="f-home-flag" style="font-size: clamp(40px, 6vw, 60px); line-height: 1;"></span>
+          <span id="f-home-name" class="bebas" style="font-size: clamp(22px, 3vw, 36px); letter-spacing: 0.04em; text-align: center;"></span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <span id="f-score-label" style="font-size: 9px; font-weight: 800; letter-spacing: 0.2em; color: #FFD23F; text-transform: uppercase;">Marcador consenso</span>
+          <span id="f-score" class="bebas" style="font-size: clamp(64px, 10vw, 120px); line-height: 0.9; text-shadow: 4px 4px 0 rgba(0,0,0,0.25);"></span>
+          <span id="f-score-count" style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: rgba(246,240,225,0.8); text-transform: uppercase;"></span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0;">
+          <span id="f-away-flag" style="font-size: clamp(40px, 6vw, 60px); line-height: 1;"></span>
+          <span id="f-away-name" class="bebas" style="font-size: clamp(22px, 3vw, 36px); letter-spacing: 0.04em; text-align: center;"></span>
         </div>
       </div>
-    </section>
 
-    <!-- Consensus Tab -->
-    <section id="section-consensus" class="fade-in hidden">
-      <div id="consensus-content"></div>
-    </section>
-
-    <!-- Matches Tab -->
-    <section id="section-matches" class="fade-in hidden">
-      <div class="flex flex-wrap gap-2 mb-6" id="group-filters"></div>
-      <div id="matches-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </section>
-
-    <!-- Bracket Tab -->
-    <section id="section-bracket" class="fade-in hidden">
-      <div id="bracket-content"></div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="border-t border-gray-800 mt-12 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center text-gray-500 text-sm">
-      <p>WorldCupBench © 2026 — <a href="https://github.com/mverab/WorldCupBench" class="text-gold hover:underline">GitHub</a></p>
-      <p class="mt-1">Predicciones congeladas antes del pitido inicial. Sin ediciones a posteriori.</p>
+      <div style="position: relative; padding: 0 clamp(14px, 3vw, 36px) 26px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; height: 16px; border: 2px solid rgba(246,240,225,0.9); border-radius: 2px; overflow: hidden; background: rgba(0,0,0,0.25);">
+          <div id="f-bar-h" style="width: 33%; background: #F6F0E1; transition: width 0.6s cubic-bezier(0.6, 0, 0.2, 1);"></div>
+          <div id="f-bar-d" style="width: 34%; background: rgba(246,240,225,0.35); transition: width 0.6s cubic-bezier(0.6, 0, 0.2, 1);"></div>
+          <div id="f-bar-a" style="width: 33%; background: #FFD23F; transition: width 0.6s cubic-bezier(0.6, 0, 0.2, 1);"></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;">
+          <span id="f-pct-h" style="color: #F6F0E1;"></span>
+          <span id="f-pct-d" style="color: rgba(246,240,225,0.65);"></span>
+          <span id="f-pct-a" style="color: #FFD23F;"></span>
+        </div>
+        <div id="f-voteline" style="margin-top: 4px; text-align: center; font-size: 14px; font-style: italic; color: rgba(246,240,225,0.95);"></div>
+      </div>
     </div>
+  </section>
+
+  <!-- ===== LA QUINIELA ===== -->
+  <section class="section-pad" style="padding-top: 40px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2>La quiniela, máquina por máquina</h2>
+      <span id="picks-subtitle" class="sub"></span>
+    </div>
+
+    <div style="overflow-x: auto; margin-top: 18px;">
+      <div style="min-width: 700px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F;">
+        <div style="display: grid; grid-template-columns: minmax(190px, 1.5fr) 80px 150px minmax(130px, 1fr) 80px; gap: 12px; align-items: center; padding: 10px 18px; border-bottom: 2px solid #17150F; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #4A463A;">
+          <span>Modelo</span>
+          <span style="text-align: center;">Marcador</span>
+          <span style="display: grid; grid-template-columns: repeat(3, 34px); gap: 8px; justify-content: center; text-align: center;"><span>L</span><span>E</span><span>V</span></span>
+          <span>Prob. 1 · X · 2</span>
+          <span style="text-align: right;">Conv.</span>
+        </div>
+        <div id="picks-rows"></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 10px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #0A6B33; border: 1px solid #17150F; vertical-align: -1px;"></span> Local</span>
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #B9AF94; border: 1px solid #17150F; vertical-align: -1px;"></span> Empate</span>
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #C8372D; border: 1px solid #17150F; vertical-align: -1px;"></span> Visitante</span>
+          <span style="margin-left: auto;">Ordenada por convicción</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LA FAVORITA ===== -->
+  <section class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2>¿Quién levanta la copa?</h2>
+      <span class="sub">Pick de campeón · Final el 19 de julio en el MetLife</span>
+    </div>
+    <div id="fav-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; margin-top: 28px;"></div>
+  </section>
+
+  <!-- ===== TABLA GENERAL ===== -->
+  <section class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+    <div class="section-head">
+      <h2>Tabla general</h2>
+      <span id="table-sub" class="sub" style="color: #C8372D;"></span>
+    </div>
+    <p style="margin: 10px 0 0; font-size: 14px; color: #4A463A; max-width: 620px;">Se actualiza con cada resultado oficial: aciertos, marcadores exactos y calibración Brier.</p>
+
+    <div style="overflow-x: auto; margin-top: 18px;">
+      <div style="min-width: 720px;">
+        <div style="display: grid; grid-template-columns: 40px minmax(190px, 1.6fr) 120px 130px 90px 90px 80px; gap: 12px; align-items: center; padding: 8px 14px; border-top: 2px solid #17150F; border-bottom: 2px solid #17150F; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #4A463A;">
+          <span>#</span><span>Modelo</span><span>Campeón</span><span>Subcampeón</span><span style="text-align: right;">Aciertos</span><span style="text-align: right;">Exactos</span><span style="text-align: right;">Brier</span>
+        </div>
+        <div id="table-rows"></div>
+      </div>
+    </div>
+    <p id="table-foot" style="margin: 12px 0 0; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8A8470;"></p>
+  </section>
+
+  <!-- ===== METODOLOGÍA ===== -->
+  <section class="section-pad" style="padding-top: 44px; padding-bottom: 56px; max-width: 1140px; margin: 0 auto;">
+    <div style="border-bottom: 3px solid #17150F; padding-bottom: 10px;">
+      <h2 class="bebas" style="margin: 0; font-size: clamp(32px, 4.5vw, 52px); line-height: 1; font-weight: 400;">Las reglas del juego</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; margin-top: 4px;">
+      <div style="padding: 18px 18px 18px 0; border-top: 2px solid #17150F; margin-top: 14px;">
+        <div class="bebas" style="font-size: 30px; color: #C8372D; line-height: 1;">01</div>
+        <div style="font-weight: 800; font-size: 14px; margin: 6px 0 4px; text-transform: uppercase; letter-spacing: 0.06em;">Mismo prompt</div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #4A463A;">Los 10 modelos reciben exactamente el mismo prompt con los datos oficiales del sorteo FIFA.</p>
+      </div>
+      <div style="padding: 18px 18px 18px 0; border-top: 2px solid #17150F; margin-top: 14px;">
+        <div class="bebas" style="font-size: 30px; color: #C8372D; line-height: 1;">02</div>
+        <div style="font-weight: 800; font-size: 14px; margin: 6px 0 4px; text-transform: uppercase; letter-spacing: 0.06em;">Quiniela congelada</div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #4A463A;">Firmada en Git antes del partido inaugural. Sin ediciones post-hoc: la credibilidad lo es todo.</p>
+      </div>
+      <div style="padding: 18px 18px 18px 0; border-top: 2px solid #17150F; margin-top: 14px;">
+        <div class="bebas" style="font-size: 30px; color: #C8372D; line-height: 1;">03</div>
+        <div style="font-weight: 800; font-size: 14px; margin: 6px 0 4px; text-transform: uppercase; letter-spacing: 0.06em;">104 partidos</div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #4A463A;">Cada predicción cubre el torneo completo con marcador y probabilidades 1X2 validadas contra esquema.</p>
+      </div>
+      <div style="padding: 18px 0 18px 0; border-top: 2px solid #17150F; margin-top: 14px;">
+        <div class="bebas" style="font-size: 30px; color: #C8372D; line-height: 1;">04</div>
+        <div style="font-weight: 800; font-size: 14px; margin: 6px 0 4px; text-transform: uppercase; letter-spacing: 0.06em;">Puntuación viva</div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #4A463A;">Aciertos por partido, marcadores exactos, calibración Brier y ROI hipotético vs Polymarket.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE ===== -->
+  <footer style="border-top: 6px double #17150F; padding: 22px clamp(16px, 4vw, 56px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+    <span class="bebas" style="font-size: 20px; letter-spacing: 0.04em;">WORLDCUP<span style="color: #0A6B33;">BENCH</span></span>
+    <span style="font-size: 12px; font-style: italic; color: #6B675C;">El Mundial es el eval definitivo.</span>
+    <a href="https://github.com/mverab/WorldCupBench" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/mverab/WorldCupBench ↗</a>
   </footer>
 
   <script src="app.js"></script>
