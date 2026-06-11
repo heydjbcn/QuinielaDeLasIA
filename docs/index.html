@@ -43,6 +43,9 @@
       .q-lev { grid-area: lev; justify-content: start !important; }
       .q-prob { grid-area: prob; }
       .q-conf { grid-area: conf; align-self: center; }
+      /* Filtros de grupo: una sola línea deslizable, no apilados */
+      #group-filters { flex-wrap: nowrap !important; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+      #group-filters button { flex: none; white-space: nowrap; }
     }
     .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
   </style>
