@@ -28,6 +28,9 @@
     .nav-item svg { width: 13px; height: 13px; flex: none; }
     /* Quiniela: en móvil cada modelo es una tarjeta apilada, no una fila de tabla */
     .q-hint { display: none; }
+    .nav-arrow { width: 34px; height: 34px; display: inline-grid; place-items: center; background: #FBF7EA; color: #17150F; border: 2px solid #17150F; border-radius: 3px; cursor: pointer; padding: 0; flex: none; }
+    .nav-arrow:hover { background: #0A6B33; color: #F6F0E1; }
+    .nav-arrow svg { width: 14px; height: 14px; }
     @media (max-width: 640px) {
       .q-hint { display: inline; }
       .q-table { min-width: 0 !important; }
@@ -162,7 +165,11 @@
   <section id="quiniela" class="section-pad" style="padding-top: 40px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
     <div class="section-head">
       <h2>La quiniela, IA por IA</h2>
-      <span id="picks-subtitle" class="sub"></span>
+      <span style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <button onclick="navMatch(-1)" class="nav-arrow" aria-label="Partido anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M15 5 L8 12 L15 19"/></svg></button>
+        <span id="picks-subtitle" class="sub"></span>
+        <button onclick="navMatch(1)" class="nav-arrow" aria-label="Partido siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 5 L16 12 L9 19"/></svg></button>
+      </span>
     </div>
 
     <div style="overflow-x: auto; margin-top: 18px;">
@@ -259,6 +266,6 @@
     <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA ↗</a>
   </footer>
 
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>

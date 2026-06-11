@@ -40,18 +40,19 @@ const $ = id => document.getElementById(id);
 const pct = v => Math.round(v * 100) + '%';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-let leaderboard = null, tournament = null, summary = null, picksData = null;
+let leaderboard = null, tournament = null, summary = null, picksData = null, live = null;
 let selectedId = null;
 
 async function loadData() {
   const get = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
-  const [lb, tn, ps, pk] = await Promise.all([
+  const [lb, tn, ps, pk, lv] = await Promise.all([
     get('data/leaderboard.json'),
     get('data/tournament.json'),
     get('data/predictions_summary.json'),
     get('data/picks.json'),
+    get('data/live.json'),
   ]);
-  leaderboard = lb; tournament = tn; summary = ps; picksData = pk;
+  leaderboard = lb; tournament = tn; summary = ps; picksData = pk; live = lv;
   render();
 }
 
@@ -59,10 +60,13 @@ async function loadData() {
 const MADRID = 'Europe/Madrid';
 function kickoff(m) { return m.utc_datetime ? new Date(m.utc_datetime) : new Date(m.date + 'T20:00:00Z'); }
 function isLive(m) {
+  if (liveInfo(m)) return true;
   const k = kickoff(m), now = new Date();
   return now >= k && now - k < 2.25 * 3600 * 1000 && !result(m);
 }
-function result(m) { return picksData?.results?.[String(m.match_id)] || picksData?.results?.['GS-' + String(m.match_id).padStart(2, '0')] || null; }
+function gsId(m) { return typeof m.match_id === 'number' ? 'GS-' + String(m.match_id).padStart(2, '0') : String(m.match_id); }
+function result(m) { return picksData?.results?.[String(m.match_id)] || picksData?.results?.[gsId(m)] || null; }
+function liveInfo(m) { return live?.matches?.[gsId(m)] || null; }
 function fmtTime(m) {
   return kickoff(m).toLocaleTimeString('es-ES', { timeZone: MADRID, hour: '2-digit', minute: '2-digit' });
 }
@@ -122,11 +126,24 @@ function upcomingMatches() {
 function chipWindow() {
   const ms = sortedMatches();
   const now = new Date();
-  let idx = ms.findIndex(m => now - kickoff(m) < 2.25 * 3600 * 1000);
-  if (idx === -1) idx = ms.length - 1;
-  const start = Math.max(0, idx - 2);
+  let idx = selectedId ? ms.findIndex(m => String(m.match_id) === selectedId) : -1;
+  if (idx === -1) {
+    idx = ms.findIndex(m => now - kickoff(m) < 2.25 * 3600 * 1000);
+    if (idx === -1) idx = ms.length - 1;
+  }
+  const start = Math.max(0, Math.min(idx - 2, ms.length - 8));
   return ms.slice(start, start + 8);
 }
+
+window.navMatch = dir => {
+  const ms = sortedMatches();
+  let idx = ms.findIndex(m => String(m.match_id) === selectedId);
+  if (idx === -1) idx = 0;
+  const ni = Math.max(0, Math.min(ms.length - 1, idx + dir));
+  selectedId = String(ms[ni].match_id);
+  renderChips();
+  renderBoard();
+};
 
 function renderChips() {
   const ms = chipWindow();
@@ -139,7 +156,9 @@ function renderChips() {
     const active = id === selectedId;
     const res = result(m);
     let meta, metaColor;
-    if (isLive(m)) { meta = '● EN VIVO'; metaColor = active ? '#FFD23F' : '#C8372D'; }
+    const lv = liveInfo(m);
+    if (lv) { meta = `● ${lv.s[0]}–${lv.s[1]} EN VIVO`; metaColor = active ? '#FFD23F' : '#C8372D'; }
+    else if (isLive(m)) { meta = '● EN VIVO'; metaColor = active ? '#FFD23F' : '#C8372D'; }
     else if (res) { meta = `FINAL ${res.s[0]}–${res.s[1]}`; metaColor = active ? 'rgba(246,240,225,0.8)' : '#0A6B33'; }
     else { meta = `${fmtDay(m)} · ${fmtTime(m)}`; metaColor = active ? 'rgba(246,240,225,0.8)' : '#8A8470'; }
     return `
@@ -169,10 +188,12 @@ function renderBoard() {
   $('f-group').textContent = 'GRUPO ' + (m.group || '?');
   $('f-venue').textContent = `${m.venue?.stadium || ''} · ${m.venue?.city || ''}`;
 
+  const lv = liveInfo(m);
   const st = $('f-status');
   if (isLive(m)) {
     st.style.color = '#FFD23F';
-    st.innerHTML = '<span class="wcb-blink" style="width: 8px; height: 8px; border-radius: 50%; background: #FFD23F; display: inline-block;"></span> EN VIVO';
+    const min = lv?.minute ? ` · ${lv.minute}'` : '';
+    st.innerHTML = `<span class="wcb-blink" style="width: 8px; height: 8px; border-radius: 50%; background: #FFD23F; display: inline-block;"></span> EN VIVO${min}`;
   } else if (res) {
     st.style.color = '#F6F0E1';
     st.textContent = 'FINAL';
@@ -190,7 +211,11 @@ function renderBoard() {
   const scoreCount = {};
   entries.forEach(e => { const k = e.p.s.join('–'); scoreCount[k] = (scoreCount[k] || 0) + 1; });
   const mode = Object.entries(scoreCount).sort((a, b) => b[1] - a[1])[0] || ['–', 0];
-  if (res) {
+  if (lv) {
+    $('f-score-label').textContent = 'Marcador en directo';
+    $('f-score').textContent = `${lv.s[0]}–${lv.s[1]}`;
+    $('f-score-count').textContent = `consenso de las IA: ${mode[0]} (${mode[1]}/${n})`;
+  } else if (res) {
     $('f-score-label').textContent = 'Resultado oficial';
     $('f-score').textContent = `${res.s[0]}–${res.s[1]}`;
     const exact = entries.filter(e => e.p.s[0] === res.s[0] && e.p.s[1] === res.s[1]).length;
@@ -341,9 +366,11 @@ function renderCalendario() {
   const ms = sortedMatches().filter(m => selectedGroup === 'all' || m.group === selectedGroup);
   $('matches-grid').innerHTML = ms.map(m => {
     const res = result(m);
-    const live = isLive(m);
+    const playing = isLive(m);
     let status;
-    if (live) status = '<span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>';
+    const lv = liveInfo(m);
+    if (lv) status = `<span class="bebas" style="font-size: 22px; color: #C8372D;">${lv.s[0]}–${lv.s[1]}</span> <span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>`;
+    else if (playing) status = '<span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>';
     else if (res) status = `<span class="bebas" style="font-size: 22px; color: #0A5B2D;">${res.s[0]}–${res.s[1]}</span> <span style="color: #8A8470; font-weight: 800;">FINAL</span>`;
     else status = `<span style="color: #4A463A; font-weight: 700;">${fmtDay(m)} · ${fmtTime(m)} h</span>`;
     return `

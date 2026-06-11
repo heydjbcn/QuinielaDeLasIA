@@ -17,16 +17,17 @@ const pct = v => Math.round(v * 100) + '%';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const MADRID = 'Europe/Madrid';
 
-let tournament = null, summary = null, picksData = null, espana = null, leaderboard = null;
+let tournament = null, summary = null, picksData = null, espana = null, leaderboard = null, live = null;
 
 async function loadData() {
   const get = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
-  [tournament, summary, picksData, espana, leaderboard] = await Promise.all([
+  [tournament, summary, picksData, espana, leaderboard, live] = await Promise.all([
     get('data/tournament.json'),
     get('data/predictions_summary.json'),
     get('data/picks.json'),
     get('data/espana.json'),
     get('data/leaderboard.json'),
+    get('data/live.json'),
   ]);
   render();
 }
@@ -37,7 +38,9 @@ function espMatches() {
     .sort((a, b) => kickoff(a) - kickoff(b));
 }
 function kickoff(m) { return m.utc_datetime ? new Date(m.utc_datetime) : new Date(m.date + 'T20:00:00Z'); }
+function liveInfo(m) { return live?.matches?.[gsId(m)] || null; }
 function isLive(m) {
+  if (liveInfo(m)) return true;
   const k = kickoff(m), now = new Date();
   return now >= k && now - k < 2.25 * 3600 * 1000 && !result(m);
 }
@@ -71,7 +74,7 @@ function renderMatches() {
   $('esp-matches').innerHTML = ms.map(m => {
     const rivalCode = m.home_team === 'ESP' ? m.away_team : m.home_team;
     const res = result(m);
-    const live = isLive(m);
+    const playing = isLive(m);
     const entries = matchPicks(m);
     const n = entries.length;
 
@@ -84,7 +87,9 @@ function renderMatches() {
     const rivIdx = m.home_team === 'ESP' ? 2 : 0;
 
     let status;
-    if (live) status = '<span class="wcb-blink" style="color: #C8372D; font-weight: 800;">&#9679; EN VIVO</span>';
+    const lv = liveInfo(m);
+    if (lv) status = `<span class="bebas" style="font-size: 38px; color: #C8372D;">${lv.s[0]}–${lv.s[1]}</span><br><span class="wcb-blink" style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #C8372D;">&#9679; EN VIVO${lv.minute ? ' · ' + esc(String(lv.minute)) + "'" : ''}</span>`;
+    else if (playing) status = '<span class="wcb-blink" style="color: #C8372D; font-weight: 800;">&#9679; EN VIVO</span>';
     else if (res) status = `<span class="bebas" style="font-size: 38px; color: #0A5B2D;">${res.s[0]}–${res.s[1]}</span><br><span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #8A8470;">FINAL</span>`;
     else status = `<span class="bebas" style="font-size: 30px;">${fmtTime(m)} h</span><br><span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #6B675C;">${esc(fmtDate(m)).toUpperCase()}</span>`;
 
