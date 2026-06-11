@@ -86,7 +86,7 @@ function render() {
 
   if (leaderboard?.last_updated) {
     const d = new Date(leaderboard.last_updated);
-    document.getElementById('last-updated').textContent = `Updated: ${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+    document.getElementById('last-updated').textContent = `Actualizado: ${d.toLocaleDateString('es-ES')} ${d.toLocaleTimeString('es-ES')}`;
   }
 }
 
@@ -101,10 +101,10 @@ function renderStats() {
     : '—';
 
   el.innerHTML = [
-    { label: 'AI Models', value: models, icon: '\ud83e\udd16', color: 'blue' },
-    { label: 'Results In', value: `${results}/${totalMatches}`, icon: '\u26bd', color: 'green' },
-    { label: 'Avg Accuracy', value: results > 0 ? `${avgAcc}%` : 'Pending', icon: '\ud83c\udfaf', color: 'gold' },
-    { label: 'Tournament', value: results === 0 ? 'Pre-Kickoff' : 'Live', icon: '\ud83d\udcc5', color: 'purple' },
+    { label: 'Modelos de IA', value: models, icon: '\ud83e\udd16', color: 'blue' },
+    { label: 'Resultados', value: `${results}/${totalMatches}`, icon: '\u26bd', color: 'green' },
+    { label: 'Precisi\u00f3n media', value: results > 0 ? `${avgAcc}%` : 'Pendiente', icon: '\ud83c\udfaf', color: 'gold' },
+    { label: 'Torneo', value: results === 0 ? 'Previa' : 'En vivo', icon: '\ud83d\udcc5', color: 'purple' },
   ].map(s => `
     <div class="glass rounded-xl p-4 hover:border-${s.color === 'gold' ? 'gold' : `accent-${s.color}`}/30 transition">
       <div class="text-2xl mb-2">${s.icon}</div>
@@ -121,7 +121,7 @@ function renderLeaderboard() {
   const podium = document.getElementById('podium');
 
   if (!models.length) {
-    tbody.innerHTML = '<tr><td colspan="9" class="px-4 py-12 text-center text-gray-500">No scoring data yet. Leaderboard will populate as match results come in.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="9" class="px-4 py-12 text-center text-gray-500">Aún no hay puntuaciones. La clasificación se irá rellenando según lleguen los resultados de los partidos.</td></tr>';
     podium.innerHTML = renderPreKickoffHero();
     return;
   }
@@ -180,9 +180,9 @@ function renderPodiumCard(model, position) {
         <div class="w-4 h-4 rounded-full mx-auto mb-2" style="background:${color}"></div>
         <h3 class="font-bold text-white text-lg">${model.model_name}</h3>
         <div class="mt-3 text-3xl font-black" style="color:${color}">${model.accuracy}%</div>
-        <div class="text-xs text-gray-400 mt-1">accuracy</div>
+        <div class="text-xs text-gray-400 mt-1">precisión</div>
         <div class="mt-3 flex justify-center gap-4 text-xs">
-          <div><span class="text-green-400 font-bold">${model.correct_outcomes}</span> correct</div>
+          <div><span class="text-green-400 font-bold">${model.correct_outcomes}</span> aciertos</div>
           <div><span class="text-gold font-bold">${model.bracket_points}</span> pts</div>
         </div>
         <div class="mt-3 text-2xl">${codeToFlag(model.champion)}</div>
@@ -203,11 +203,11 @@ function renderPreKickoffHero() {
   return `
     <div class="glass rounded-xl p-8 text-center mb-8 glow">
       <div class="text-5xl mb-4">\ud83c\udfc6</div>
-      <h2 class="text-2xl font-bold text-white mb-2">Predictions Frozen</h2>
-      <p class="text-gray-400 mb-6">${models.length} frontier AI models have locked in their predictions.<br>Scoring begins when the first match is played.</p>
+      <h2 class="text-2xl font-bold text-white mb-2">Predicciones congeladas</h2>
+      <p class="text-gray-400 mb-6">${models.length} modelos de IA punteros han fijado sus predicciones.<br>La puntuación empieza con el primer partido.</p>
       ${sorted.length ? `
         <div class="mb-4">
-          <h3 class="text-sm font-semibold text-gray-300 mb-3">\ud83d\udd2e Champion Predictions</h3>
+          <h3 class="text-sm font-semibold text-gray-300 mb-3">\ud83d\udd2e Predicciones de campe\u00f3n</h3>
           <div class="flex flex-wrap justify-center gap-3">
             ${sorted.map(([code, count]) => `
               <div class="glass rounded-lg px-4 py-2 flex items-center gap-2">
@@ -222,7 +222,7 @@ function renderPreKickoffHero() {
       ${models.length ? `
         <div class="mt-6 overflow-x-auto">
           <table class="mx-auto text-sm">
-            <thead><tr class="text-gray-400"><th class="px-3 py-1">Model</th><th class="px-3 py-1">\ud83e\udd47</th><th class="px-3 py-1">\ud83e\udd48</th><th class="px-3 py-1">\ud83e\udd49</th></tr></thead>
+            <thead><tr class="text-gray-400"><th class="px-3 py-1">Modelo</th><th class="px-3 py-1">\ud83e\udd47</th><th class="px-3 py-1">\ud83e\udd48</th><th class="px-3 py-1">\ud83e\udd49</th></tr></thead>
             <tbody>
               ${models.map(m => {
                 const color = MODEL_COLORS[m.model_name] || '#9CA3AF';
@@ -252,7 +252,7 @@ function renderConsensus() {
   const models = predictionsSummary || [];
 
   if (!models.length) {
-    el.innerHTML = '<p class="text-gray-500 text-center py-12">No predictions loaded.</p>';
+    el.innerHTML = '<p class="text-gray-500 text-center py-12">No hay predicciones cargadas.</p>';
     return;
   }
 
@@ -293,9 +293,9 @@ function renderConsensus() {
     `;
   };
 
-  el.innerHTML = renderBar(champCounts, 'Champion Predictions', '\ud83c\udfc6') +
-                 renderBar(runnerCounts, 'Runner-Up Predictions', '\ud83e\udd48') +
-                 renderBar(thirdCounts, 'Third Place Predictions', '\ud83e\udd49');
+  el.innerHTML = renderBar(champCounts, 'Predicciones de campe\u00f3n', '\ud83c\udfc6') +
+                 renderBar(runnerCounts, 'Predicciones de subcampe\u00f3n', '\ud83e\udd48') +
+                 renderBar(thirdCounts, 'Predicciones de tercer puesto', '\ud83e\udd49');
 }
 
 // === MATCHES ===
@@ -307,9 +307,9 @@ function renderMatches() {
 
   const groups = [...new Set(tournament.matches.map(m => m.group))].sort();
   filtersEl.innerHTML = `
-    <button onclick="filterMatches('all')" class="px-3 py-1 rounded-full text-xs font-medium bg-gold text-black" id="filter-all">All</button>
+    <button onclick="filterMatches('all')" class="px-3 py-1 rounded-full text-xs font-medium bg-gold text-black" id="filter-all">Todos</button>
     ${groups.map(g => `
-      <button onclick="filterMatches('${g}')" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700" id="filter-${g}">Group ${g}</button>
+      <button onclick="filterMatches('${g}')" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700" id="filter-${g}">Grupo ${g}</button>
     `).join('')}
   `;
 
@@ -324,11 +324,11 @@ function renderMatches() {
     const matches = group === 'all' ? tournament.matches : tournament.matches.filter(m => m.group === group);
     gridEl.innerHTML = matches.map(m => {
       const date = new Date(m.date + 'T00:00:00');
-      const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const dateStr = date.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
       return `
         <div class="glass rounded-xl p-4 hover:border-gold/30 transition">
           <div class="flex items-center justify-between mb-3">
-            <span class="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-400">Group ${m.group}</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-400">Grupo ${m.group}</span>
             <span class="text-xs text-gray-500">${dateStr}</span>
           </div>
           <div class="flex items-center justify-between">
@@ -355,22 +355,22 @@ function renderMatches() {
 function renderBracket() {
   const el = document.getElementById('bracket-content');
   if (!predictionsSummary?.length) {
-    el.innerHTML = '<p class="text-gray-500 text-center py-12">Bracket data not available yet.</p>';
+    el.innerHTML = '<p class="text-gray-500 text-center py-12">Aún no hay datos del cuadro.</p>';
     return;
   }
 
   el.innerHTML = `
     <div class="glass rounded-xl p-6">
-      <h2 class="text-lg font-bold mb-4">\ud83c\udfc5 Predicted Final Standings by Model</h2>
+      <h2 class="text-lg font-bold mb-4">\ud83c\udfc5 Clasificaci\u00f3n final pronosticada por modelo</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr class="text-gray-400 border-b border-gray-800">
-              <th class="px-4 py-3 text-left">Model</th>
-              <th class="px-4 py-3 text-center">\ud83e\udd47 Champion</th>
-              <th class="px-4 py-3 text-center">\ud83e\udd48 Runner-Up</th>
-              <th class="px-4 py-3 text-center">\ud83e\udd49 Third</th>
-              <th class="px-4 py-3 text-center">4th</th>
+              <th class="px-4 py-3 text-left">Modelo</th>
+              <th class="px-4 py-3 text-center">\ud83e\udd47 Campe\u00f3n</th>
+              <th class="px-4 py-3 text-center">\ud83e\udd48 Subcampe\u00f3n</th>
+              <th class="px-4 py-3 text-center">\ud83e\udd49 Tercero</th>
+              <th class="px-4 py-3 text-center">4\u00ba</th>
             </tr>
           </thead>
           <tbody>
