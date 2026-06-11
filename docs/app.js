@@ -43,6 +43,13 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 let leaderboard = null, tournament = null, summary = null, picksData = null, live = null;
 let selectedId = null;
 
+// ===== Filtro por selecciones (buscador de cabecera) =====
+let selectedTeams = [];
+try { selectedTeams = JSON.parse(localStorage.getItem('wcb-teams') || '[]'); } catch { selectedTeams = []; }
+function saveTeams() { try { localStorage.setItem('wcb-teams', JSON.stringify(selectedTeams)); } catch {} }
+function teamFilter(m) { return !selectedTeams.length || selectedTeams.includes(m.home_team) || selectedTeams.includes(m.away_team); }
+const norm = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
 async function loadData() {
   const get = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
   const [lb, tn, ps, pk, lv] = await Promise.all([
@@ -118,13 +125,17 @@ function sortedMatches() {
   return [...tournament.matches].sort((a, b) => kickoff(a) - kickoff(b));
 }
 
+function filteredMatches() {
+  return sortedMatches().filter(teamFilter);
+}
+
 function upcomingMatches() {
   const now = new Date();
   return sortedMatches().filter(m => kickoff(m) - now > -2.25 * 3600 * 1000);
 }
 
 function chipWindow() {
-  const ms = sortedMatches();
+  const ms = filteredMatches();
   const now = new Date();
   let idx = selectedId ? ms.findIndex(m => String(m.match_id) === selectedId) : -1;
   if (idx === -1) {
@@ -136,7 +147,7 @@ function chipWindow() {
 }
 
 window.navMatch = dir => {
-  const ms = sortedMatches();
+  const ms = filteredMatches();
   let idx = ms.findIndex(m => String(m.match_id) === selectedId);
   if (idx === -1) idx = 0;
   const ni = Math.max(0, Math.min(ms.length - 1, idx + dir));
@@ -147,6 +158,7 @@ window.navMatch = dir => {
 
 function renderChips() {
   const ms = chipWindow();
+  if (!ms.length) { $('chips').innerHTML = ''; return; }
   if (!selectedId || !ms.some(m => String(m.match_id) === selectedId)) {
     const live = ms.find(isLive);
     selectedId = String((live || ms.find(m => !result(m)) || ms[0]).match_id);
@@ -361,9 +373,13 @@ function renderCalendario() {
     const active = selectedGroup === id;
     return `<button onclick="filterGroup('${id}')" style="cursor: pointer; padding: 6px 14px; background: ${active ? '#0A6B33' : '#FBF7EA'}; color: ${active ? '#F6F0E1' : '#17150F'}; border: 2px ${active ? 'solid' : 'dashed'} #17150F; border-radius: 3px; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;">${label}</button>`;
   };
-  $('group-filters').innerHTML = btn('all', 'Todos') + groups.map(g => btn(g, 'Grupo ' + g)).join('');
+  const gf = $('group-filters');
+  gf.innerHTML = btn('all', 'Todos') + groups.map(g => btn(g, 'Grupo ' + g)).join('');
+  const locked = selectedTeams.length > 0;
+  gf.style.opacity = locked ? '0.45' : '';
+  gf.style.pointerEvents = locked ? 'none' : '';
 
-  const ms = sortedMatches().filter(m => selectedGroup === 'all' || m.group === selectedGroup);
+  const ms = filteredMatches().filter(m => selectedGroup === 'all' || m.group === selectedGroup);
   $('matches-grid').innerHTML = ms.map(m => {
     const res = result(m);
     const playing = isLive(m);
@@ -397,5 +413,81 @@ function renderCalendario() {
 
 window.filterGroup = g => { selectedGroup = g; renderCalendario(); };
 
+// ===== Combobox del buscador de selecciones =====
+function tournamentTeams() {
+  const codes = new Set();
+  (tournament?.matches || []).forEach(m => { codes.add(m.home_team); codes.add(m.away_team); });
+  return [...codes].sort((a, b) => teamName(a).localeCompare(teamName(b), 'es'));
+}
+
+function renderTags() {
+  const tags = $('team-tags');
+  if (!tags) return;
+  tags.innerHTML = selectedTeams.map(c => `
+    <span class="team-tag">${codeToFlag(c)}${esc(teamName(c))}<button onclick="removeTeam('${c}')" aria-label="Quitar ${esc(teamName(c))}">✕</button></span>`).join('');
+  const clear = $('team-clear');
+  if (clear) clear.style.display = selectedTeams.length ? 'inline' : 'none';
+  const input = $('team-input');
+  if (input) input.placeholder = selectedTeams.length ? 'Añadir otra…' : 'Busca una selección…';
+}
+
+function applyTeamFilter() {
+  saveTeams();
+  renderTags();
+  selectedId = null; // re-elige el partido dentro del filtro
+  renderChips();
+  renderBoard();
+  renderCalendario();
+}
+
+window.addTeam = c => {
+  if (!selectedTeams.includes(c)) {
+    selectedTeams.push(c);
+    selectedGroup = 'all';
+    applyTeamFilter();
+  }
+  const input = $('team-input');
+  if (input) { input.value = ''; input.focus(); }
+  if (window._teamDropdownRefresh) window._teamDropdownRefresh();
+};
+
+window.removeTeam = c => {
+  selectedTeams = selectedTeams.filter(x => x !== c);
+  applyTeamFilter();
+  if (window._teamDropdownRefresh) window._teamDropdownRefresh();
+};
+
+function initTeamSearch() {
+  const input = $('team-input'), dd = $('team-dropdown'), clear = $('team-clear'), wrap = $('team-search-wrap');
+  if (!input || !dd) return;
+
+  function renderDropdown() {
+    const q = norm(input.value.trim());
+    const opts = tournamentTeams()
+      .filter(c => !selectedTeams.includes(c))
+      .filter(c => !q || norm(teamName(c)).includes(q) || norm(c).includes(q));
+    dd.innerHTML = opts.length
+      ? opts.map(c => `<button class="team-opt" onclick="addTeam('${c}')">${codeToFlag(c)}<span>${esc(teamName(c))}</span><span class="code">${c}</span></button>`).join('')
+      : '<div style="padding: 12px 14px; font-size: 13px; color: #8A8470;">Sin resultados</div>';
+  }
+  window._teamDropdownRefresh = renderDropdown;
+
+  const open = () => { renderDropdown(); dd.hidden = false; };
+  const close = () => { dd.hidden = true; };
+
+  input.addEventListener('input', open);
+  input.addEventListener('focus', open);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); const b = dd.querySelector('.team-opt'); if (b) b.click(); }
+    else if (e.key === 'Escape') close();
+    else if (e.key === 'Backspace' && !input.value && selectedTeams.length) removeTeam(selectedTeams[selectedTeams.length - 1]);
+  });
+  document.addEventListener('click', e => { if (wrap && !wrap.contains(e.target)) close(); });
+  if (clear) clear.addEventListener('click', e => { e.stopPropagation(); selectedTeams = []; applyTeamFilter(); });
+
+  renderTags();
+}
+
+initTeamSearch();
 loadData();
 setInterval(loadData, 60000);

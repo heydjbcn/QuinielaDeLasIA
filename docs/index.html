@@ -57,6 +57,24 @@
       .topbar { flex-direction: column; align-items: center; text-align: center; gap: 6px; font-size: clamp(12px, 3.6vw, 16px); line-height: 1.35; }
     }
     .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
+    /* Buscador de selecciones */
+    #team-search { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 4px 4px 0 #17150F; padding: 8px 12px; cursor: text; }
+    #team-search:focus-within { border-color: #0A6B33; }
+    #team-search .lupa { width: 14px; height: 14px; flex: none; color: #8A8470; }
+    #team-input { flex: 1; min-width: 130px; border: none; outline: none; background: transparent; font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 600; color: #17150F; padding: 4px 2px; }
+    #team-input::placeholder { color: #B9AF94; font-weight: 500; }
+    .team-tag { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid #17150F; border-radius: 3px; background: #F3ECD8; padding: 3px 4px 3px 8px; font-size: 12px; font-weight: 700; }
+    .team-tag .flag { height: 12px; }
+    .team-tag button { border: none; background: none; color: #8A8470; cursor: pointer; font-size: 12px; font-weight: 900; padding: 0 4px; line-height: 1; }
+    .team-tag button:hover { color: #C8372D; }
+    #team-clear { display: none; border: none; background: none; color: #8A8470; cursor: pointer; font-weight: 900; font-size: 14px; padding: 2px 6px; flex: none; }
+    #team-clear:hover { color: #C8372D; }
+    #team-dropdown { position: absolute; left: 16px; right: 16px; top: calc(100% + 6px); z-index: 60; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 4px 4px 0 #17150F; max-height: 300px; overflow-y: auto; }
+    .team-opt { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 14px; background: none; border: none; border-bottom: 1px solid #DCD3BC; cursor: pointer; font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 600; color: #17150F; text-align: left; }
+    .team-opt:last-child { border-bottom: none; }
+    .team-opt:hover { background: #F3ECD8; }
+    .team-opt .flag { height: 14px; }
+    .team-opt .code { margin-left: auto; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A8470; }
   </style>
 </head>
 <body>
@@ -81,6 +99,17 @@
     </div>
     <div id="header-sub" style="margin-top: 6px; border-bottom: 6px double #17150F; padding-bottom: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">10 modelos frontera · 104 partidos · 1 mismo prompt · 0 ediciones post-hoc</div>
   </header>
+
+  <!-- ===== BUSCADOR DE SELECCIONES ===== -->
+  <div id="team-search-wrap" style="max-width: 640px; margin: 18px auto 0; padding: 0 16px; position: relative;">
+    <div id="team-search" onclick="document.getElementById('team-input').focus()">
+      <svg class="lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 L21 21"/></svg>
+      <span id="team-tags" style="display: contents;"></span>
+      <input id="team-input" type="text" placeholder="Busca una selección…" autocomplete="off" aria-label="Buscar selección">
+      <button id="team-clear" aria-label="Limpiar búsqueda">✕</button>
+    </div>
+    <div id="team-dropdown" hidden></div>
+  </div>
 
   <!-- ===== MENÚ ===== -->
   <nav style="position: sticky; top: 0; z-index: 50; background: #F2EBDA; border-bottom: 2px solid #17150F;">
@@ -272,6 +301,6 @@
     <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA ↗</a>
   </footer>
 
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
