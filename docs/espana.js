@@ -38,14 +38,23 @@ function espMatches() {
     .sort((a, b) => kickoff(a) - kickoff(b));
 }
 function kickoff(m) { return m.utc_datetime ? new Date(m.utc_datetime) : new Date(m.date + 'T20:00:00Z'); }
-function liveInfo(m) { return live?.matches?.[gsId(m)] || null; }
+function liveInfo(m) {
+  const lv = live?.matches?.[gsId(m)];
+  return lv && lv.status !== 'FINISHED' ? lv : null;
+}
 function isLive(m) {
   if (liveInfo(m)) return true;
   const k = kickoff(m), now = new Date();
   return now >= k && now - k < 2.25 * 3600 * 1000 && !result(m);
 }
 function gsId(m) { return typeof m.match_id === 'number' ? 'GS-' + String(m.match_id).padStart(2, '0') : String(m.match_id); }
-function result(m) { return picksData?.results?.[gsId(m)] || null; }
+function result(m) {
+  const r = picksData?.results?.[gsId(m)];
+  if (r) return r;
+  const lv = live?.matches?.[gsId(m)];
+  if (lv && lv.status === 'FINISHED') return { s: lv.s, o: lv.s[0] > lv.s[1] ? 'home' : lv.s[0] < lv.s[1] ? 'away' : 'draw' };
+  return null;
+}
 function matchPicks(m) {
   const byModel = picksData?.picks?.[gsId(m)] || {};
   return (picksData?.models || []).map(md => ({ md, p: byModel[md.name] })).filter(e => e.p);

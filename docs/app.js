@@ -72,8 +72,18 @@ function isLive(m) {
   return now >= k && now - k < 2.25 * 3600 * 1000 && !result(m);
 }
 function gsId(m) { return typeof m.match_id === 'number' ? 'GS-' + String(m.match_id).padStart(2, '0') : String(m.match_id); }
-function result(m) { return picksData?.results?.[String(m.match_id)] || picksData?.results?.[gsId(m)] || null; }
-function liveInfo(m) { return live?.matches?.[gsId(m)] || null; }
+function result(m) {
+  const r = picksData?.results?.[String(m.match_id)] || picksData?.results?.[gsId(m)];
+  if (r) return r;
+  // Final recién pitado: la API live ya lo da aunque la puntuación oficial tarde unos minutos
+  const lv = live?.matches?.[gsId(m)];
+  if (lv && lv.status === 'FINISHED') return { s: lv.s, o: lv.s[0] > lv.s[1] ? 'home' : lv.s[0] < lv.s[1] ? 'away' : 'draw' };
+  return null;
+}
+function liveInfo(m) {
+  const lv = live?.matches?.[gsId(m)];
+  return lv && lv.status !== 'FINISHED' ? lv : null;
+}
 function fmtTime(m) {
   return kickoff(m).toLocaleTimeString('es-ES', { timeZone: MADRID, hour: '2-digit', minute: '2-digit' });
 }
