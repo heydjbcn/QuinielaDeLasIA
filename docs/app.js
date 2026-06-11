@@ -15,11 +15,7 @@ const TEAMS = {
   DEN: 'Dinamarca', SRB: 'Serbia', UKR: 'Ucrania', NGA: 'Nigeria', CMR: 'Camerún',
 };
 
-const FLAG_OVERRIDES = {
-  ENG: '\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}',
-  SCO: '\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}\u{E007F}',
-  WAL: '\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}',
-};
+const FLAG_SPECIAL = { ENG: 'gb-eng', SCO: 'gb-sct', WAL: 'gb-wls' };
 
 const MAP_3TO2 = {
   MEX: 'MX', RSA: 'ZA', KOR: 'KR', CZE: 'CZ', USA: 'US', BRA: 'BR', ARG: 'AR',
@@ -31,13 +27,11 @@ const MAP_3TO2 = {
   NZL: 'NZ', UZB: 'UZ', IRQ: 'IQ', JOR: 'JO', BIH: 'BA', SRB: 'RS', ITA: 'IT',
 };
 
+// Bandera como imagen (flagcdn SVG); escala con el font-size del contenedor (height: 1em)
 function codeToFlag(code) {
-  if (!code) return '\u{1F3F3}';
-  if (FLAG_OVERRIDES[code]) return FLAG_OVERRIDES[code];
-  const c2 = MAP_3TO2[code] || code.substring(0, 2).toUpperCase();
-  try {
-    return String.fromCodePoint(c2.charCodeAt(0) - 65 + 0x1F1E6, c2.charCodeAt(1) - 65 + 0x1F1E6);
-  } catch { return '\u{1F3F3}'; }
+  if (!code) return '';
+  const cc = FLAG_SPECIAL[code] || (MAP_3TO2[code] || code.substring(0, 2)).toLowerCase();
+  return `<img class="flag" src="https://flagcdn.com/${cc}.svg" alt="${esc(code)}" loading="lazy">`;
 }
 
 function teamName(code) { return TEAMS[code] || code; }
@@ -187,9 +181,9 @@ function renderBoard() {
     st.textContent = `${fmtDay(m)} · ${fmtTime(m)}`;
   }
 
-  $('f-home-flag').textContent = codeToFlag(m.home_team);
+  $('f-home-flag').innerHTML = codeToFlag(m.home_team);
   $('f-home-name').textContent = teamName(m.home_team);
-  $('f-away-flag').textContent = codeToFlag(m.away_team);
+  $('f-away-flag').innerHTML = codeToFlag(m.away_team);
   $('f-away-name').textContent = teamName(m.away_team);
 
   // marcador: real si lo hay; si no, moda del consenso
@@ -220,8 +214,8 @@ function renderBoard() {
     const votes = { home: 0, draw: 0, away: 0 };
     entries.forEach(e => { votes[e.p.r] = (votes[e.p.r] || 0) + 1; });
     let line;
-    if (votes.home === n) line = `Las ${n} máquinas marcan victoria de ${teamName(m.home_team)} en su quiniela.`;
-    else if (votes.away === n) line = `Las ${n} máquinas marcan victoria de ${teamName(m.away_team)} en su quiniela.`;
+    if (votes.home === n) line = `Las ${n} IA marcan victoria de ${teamName(m.home_team)} en su quiniela.`;
+    else if (votes.away === n) line = `Las ${n} IA marcan victoria de ${teamName(m.away_team)} en su quiniela.`;
     else line = `${votes.home} marcan local · ${votes.draw} empate · ${votes.away} visitante.`;
     if (res) {
       const o = res.o || (res.s[0] > res.s[1] ? 'home' : res.s[0] < res.s[1] ? 'away' : 'draw');

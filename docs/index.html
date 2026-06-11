@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MundialBench — La quiniela de las máquinas · Mundial 2026</title>
+  <title>MundialBench — La quiniela de las IA · Mundial 2026</title>
   <meta name="description" content="10 modelos de IA punteros rellenaron su quiniela completa del Mundial FIFA 2026 antes del pitido inicial. Cada resultado real reparte los puntos.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='%23F2EBDA' stroke='%2317150F' stroke-width='6'/%3E%3Cpolygon points='50,32 67,44 60,64 40,64 33,44' fill='%2317150F'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -24,6 +24,9 @@
     .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 3px solid #17150F; padding-bottom: 10px; }
     .section-head h2 { margin: 0; font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 4.5vw, 52px); line-height: 1; letter-spacing: 0.01em; }
     .section-head .sub { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6B675C; }
+    .nav-item { display: inline-flex; align-items: center; gap: 6px; }
+    .nav-item svg { width: 13px; height: 13px; flex: none; }
+    .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
   </style>
 </head>
 <body>
@@ -40,7 +43,7 @@
     <div class="bebas" style="font-size: clamp(56px, 11vw, 132px); line-height: 0.9; letter-spacing: 0.01em; color: #17150F;">MUNDIAL<span style="color: #0A6B33;">BENCH</span></div>
     <div style="display: flex; align-items: center; gap: 14px; margin-top: 14px;">
       <span style="flex: 1; height: 2px; background: #17150F;"></span>
-      <span style="font-size: clamp(11px, 1.4vw, 13px); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;">La quiniela de las máquinas · Mundial 2026</span>
+      <span style="font-size: clamp(11px, 1.4vw, 13px); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;">La quiniela de las IA · Mundial 2026</span>
       <span style="flex: 1; height: 2px; background: #17150F;"></span>
     </div>
     <div id="header-sub" style="margin-top: 6px; border-bottom: 6px double #17150F; padding-bottom: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">10 modelos frontera · 104 partidos · 1 mismo prompt · 0 ediciones post-hoc</div>
@@ -49,12 +52,12 @@
   <!-- ===== MENÚ ===== -->
   <nav style="position: sticky; top: 0; z-index: 50; background: #F2EBDA; border-bottom: 2px solid #17150F;">
     <div class="section-pad" style="display: flex; gap: clamp(14px, 3vw, 28px); overflow-x: auto; padding-top: 10px; padding-bottom: 10px; max-width: 1140px; margin: 0 auto; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;">
-      <a href="#marcador" class="wcb-link" style="color: #17150F; text-decoration: none;">⚽ Marcador</a>
-      <a href="#quiniela" class="wcb-link" style="color: #17150F; text-decoration: none;">✕ Quiniela</a>
-      <a href="#favoritas" class="wcb-link" style="color: #17150F; text-decoration: none;">🏆 Favoritas</a>
-      <a href="#clasificacion" class="wcb-link" style="color: #17150F; text-decoration: none;">📊 Clasificación</a>
-      <a href="#partidos" class="wcb-link" style="color: #17150F; text-decoration: none;">📅 Partidos</a>
-      <a href="#reglas" class="wcb-link" style="color: #17150F; text-decoration: none;">📐 Reglas</a>
+      <a href="#marcador" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polygon points="12,8 16,11 14.5,15.5 9.5,15.5 8,11" fill="currentColor" stroke="none"/></svg>Marcador</a>
+      <a href="#quiniela" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6 L18 18 M18 6 L6 18"/></svg>Quiniela</a>
+      <a href="#favoritas" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4.5a3 3 0 0 0 3 4.5M17 6h2.5a3 3 0 0 1-3 4.5"/><path d="M12 14v3M8.5 20h7M10 20v-3h4v3"/></svg>Favoritas</a>
+      <a href="#clasificacion" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 20V10M12 20V4M19 20v-8"/></svg>Clasificación</a>
+      <a href="#partidos" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M4 9h16M8 3v4M16 3v4"/></svg>Partidos</a>
+      <a href="#reglas" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h11l3 3v13H5z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Reglas</a>
     </div>
   </nav>
 
@@ -64,7 +67,7 @@
       <span id="head-tag" style="background: #C8372D; color: #F6F0E1; font-weight: 800; font-size: 11px; letter-spacing: 0.16em; padding: 4px 10px; text-transform: uppercase;">Arranca el Mundial</span>
       <span id="head-meta" style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: #6B675C; text-transform: uppercase;"></span>
     </div>
-    <h1 id="head-title" class="bebas" style="margin: 14px 0 0; font-size: clamp(44px, 7.5vw, 96px); line-height: 0.92; letter-spacing: 0.005em; max-width: 900px; font-weight: 400;">Hoy empiezan a jugar las máquinas</h1>
+    <h1 id="head-title" class="bebas" style="margin: 14px 0 0; font-size: clamp(44px, 7.5vw, 96px); line-height: 0.92; letter-spacing: 0.005em; max-width: 900px; font-weight: 400;">Hoy empiezan a jugar las IA</h1>
     <p id="head-p" style="margin: 16px 0 0; font-size: clamp(15px, 1.7vw, 18px); line-height: 1.6; color: #4A463A; max-width: 640px;">Diez modelos llenaron su quiniela completa — los 104 partidos, con marcador y probabilidades — antes del pitido inicial. Quedó firmada y congelada. Desde hoy, cada resultado real reparte los puntos.</p>
   </section>
 
@@ -133,7 +136,7 @@
   <!-- ===== LA QUINIELA ===== -->
   <section id="quiniela" class="section-pad" style="padding-top: 40px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
     <div class="section-head">
-      <h2>La quiniela, máquina por máquina</h2>
+      <h2>La quiniela, IA por IA</h2>
       <span id="picks-subtitle" class="sub"></span>
     </div>
 
@@ -228,9 +231,9 @@
   <footer style="border-top: 6px double #17150F; padding: 22px clamp(16px, 4vw, 56px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
     <span class="bebas" style="font-size: 20px; letter-spacing: 0.04em;">MUNDIAL<span style="color: #0A6B33;">BENCH</span></span>
     <span style="font-size: 12px; font-style: italic; color: #6B675C;">El Mundial es el eval definitivo.</span>
-    <a href="https://github.com/heydjbcn/QuinielaDeLasMaquinas" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasMaquinas ↗</a>
+    <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA ↗</a>
   </footer>
 
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
