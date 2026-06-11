@@ -33,6 +33,7 @@
     /* Quiniela: en móvil cada modelo es una tarjeta apilada, no una fila de tabla */
     .q-hint { display: none; }
     .q-nav { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
+    #picks-subtitle .q-sub-note::before { content: ' · '; }
     .nav-arrow { width: 34px; height: 34px; display: inline-grid; place-items: center; background: #FBF7EA; color: #17150F; border: 2px solid #17150F; border-radius: 3px; cursor: pointer; padding: 0; flex: none; }
     .nav-arrow:hover { background: #0A6B33; color: #F6F0E1; }
     .nav-arrow svg { width: 14px; height: 14px; }
@@ -59,6 +60,10 @@
       /* Navegación de la quiniela: una fila a lo ancho, texto centrado entre flechas */
       .q-nav { width: 100%; justify-content: space-between; }
       .q-nav .sub { flex: 1; text-align: center; }
+      /* Subtítulo: nombres completos arriba, nota debajo */
+      #picks-subtitle .q-sub-teams { display: block; font-size: 13px; letter-spacing: 0.08em; }
+      #picks-subtitle .q-sub-note { display: block; font-size: 9px; color: #8A8470; margin-top: 2px; }
+      #picks-subtitle .q-sub-note::before { content: ''; }
     }
     .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
     /* Buscador de selecciones */
@@ -305,6 +310,6 @@
     <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA ↗</a>
   </footer>
 
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>

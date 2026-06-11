@@ -266,7 +266,7 @@ function renderBoard() {
 }
 
 function renderQuiniela(m, entries, res) {
-  $('picks-subtitle').textContent = `${m.home_team} vs ${m.away_team} · congelada el 10 de junio`;
+  $('picks-subtitle').innerHTML = `<span class="q-sub-teams">${esc(teamName(m.home_team))} vs ${esc(teamName(m.away_team))}</span><span class="q-sub-note">Congelada el 10 de junio</span>`;
   const realOutcome = res ? (res.o || (res.s[0] > res.s[1] ? 'home' : res.s[0] < res.s[1] ? 'away' : 'draw')) : null;
 
   const rows = entries.map(e => {
