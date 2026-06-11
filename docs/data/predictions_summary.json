@@ -48,6 +48,14 @@
     "fourth_place": "POR"
   },
   {
+    "model_name": "Kimi-K2.6",
+    "model_id": "moonshotai/kimi-k2.6-20260420",
+    "champion": "ARG",
+    "runner_up": "ESP",
+    "third_place": "FRA",
+    "fourth_place": "BRA"
+  },
+  {
     "model_name": "MiMo-V2.5-Pro",
     "model_id": "xiaomi/mimo-v2.5-pro-20260422",
     "champion": "ARG",

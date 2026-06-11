@@ -223,10 +223,13 @@ function renderBoard() {
   const scoreCount = {};
   entries.forEach(e => { const k = e.p.s.join('–'); scoreCount[k] = (scoreCount[k] || 0) + 1; });
   const mode = Object.entries(scoreCount).sort((a, b) => b[1] - a[1])[0] || ['–', 0];
+  const badge = $('f-ia-badge');
   if (lv) {
     $('f-score-label').textContent = 'Marcador en directo';
     $('f-score').textContent = `${lv.s[0]}–${lv.s[1]}`;
-    $('f-score-count').textContent = `consenso de las IA: ${mode[0]} (${mode[1]}/${n})`;
+    $('f-score-count').textContent = `${mode[1]} de ${n} IA apostaron por ${mode[0]}`;
+    badge.style.display = 'inline-block';
+    $('f-ia-score').textContent = mode[0];
   } else if (res) {
     $('f-score-label').textContent = 'Resultado oficial';
     $('f-score').textContent = `${res.s[0]}–${res.s[1]}`;
@@ -237,6 +240,7 @@ function renderBoard() {
     $('f-score').textContent = mode[0];
     $('f-score-count').textContent = `${mode[1]} de ${n} modelos`;
   }
+  if (!lv) badge.style.display = 'none';
 
   // barra de probabilidades medias
   if (n) {
