@@ -123,7 +123,8 @@
         "stadium": "Estadio Azteca",
         "city": "Mexico City"
       },
-      "utc_datetime": "2026-06-11T19:00:00Z"
+      "utc_datetime": "2026-06-11T19:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 2,
@@ -135,7 +136,8 @@
         "stadium": "BMO Field",
         "city": "Toronto"
       },
-      "utc_datetime": "2026-06-12T02:00:00Z"
+      "utc_datetime": "2026-06-12T02:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 3,
@@ -147,7 +149,8 @@
         "stadium": "SoFi Stadium",
         "city": "Los Angeles"
       },
-      "utc_datetime": "2026-06-19T01:00:00Z"
+      "utc_datetime": "2026-06-19T01:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 4,
@@ -159,7 +162,8 @@
         "stadium": "MetLife Stadium",
         "city": "New York/New Jersey"
       },
-      "utc_datetime": "2026-06-18T16:00:00Z"
+      "utc_datetime": "2026-06-18T16:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 5,
@@ -171,7 +175,8 @@
         "stadium": "NRG Stadium",
         "city": "Houston"
       },
-      "utc_datetime": "2026-06-25T01:00:00Z"
+      "utc_datetime": "2026-06-25T01:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 6,
@@ -183,7 +188,8 @@
         "stadium": "GEHA Field at Arrowhead",
         "city": "Kansas City"
       },
-      "utc_datetime": "2026-06-25T01:00:00Z"
+      "utc_datetime": "2026-06-25T01:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 7,
@@ -195,7 +201,8 @@
         "stadium": "BMO Field",
         "city": "Toronto"
       },
-      "utc_datetime": "2026-06-12T19:00:00Z"
+      "utc_datetime": "2026-06-12T19:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 8,
@@ -207,7 +214,8 @@
         "stadium": "AT&T Stadium",
         "city": "Dallas"
       },
-      "utc_datetime": "2026-06-13T19:00:00Z"
+      "utc_datetime": "2026-06-13T19:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 9,
@@ -219,7 +227,8 @@
         "stadium": "Estadio BBVA",
         "city": "Monterrey"
       },
-      "utc_datetime": "2026-06-18T22:00:00Z"
+      "utc_datetime": "2026-06-18T22:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 10,
@@ -231,7 +240,8 @@
         "stadium": "Estadio Akron",
         "city": "Guadalajara"
       },
-      "utc_datetime": "2026-06-18T19:00:00Z"
+      "utc_datetime": "2026-06-18T19:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 11,
@@ -243,7 +253,8 @@
         "stadium": "Mercedes-Benz Stadium",
         "city": "Atlanta"
       },
-      "utc_datetime": "2026-06-24T19:00:00Z"
+      "utc_datetime": "2026-06-24T19:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 12,
@@ -255,7 +266,8 @@
         "stadium": "Gillette Stadium",
         "city": "Boston"
       },
-      "utc_datetime": "2026-06-24T19:00:00Z"
+      "utc_datetime": "2026-06-24T19:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 13,
@@ -267,7 +279,8 @@
         "stadium": "MetLife Stadium",
         "city": "New York/New Jersey"
       },
-      "utc_datetime": "2026-06-13T22:00:00Z"
+      "utc_datetime": "2026-06-13T22:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 14,
@@ -279,7 +292,8 @@
         "stadium": "Hard Rock Stadium",
         "city": "Miami"
       },
-      "utc_datetime": "2026-06-14T01:00:00Z"
+      "utc_datetime": "2026-06-14T01:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 15,
@@ -291,7 +305,8 @@
         "stadium": "Lincoln Financial Field",
         "city": "Philadelphia"
       },
-      "utc_datetime": "2026-06-20T00:30:00Z"
+      "utc_datetime": "2026-06-20T00:30:00Z",
+      "matchday": 2
     },
     {
       "match_id": 16,
@@ -303,7 +318,8 @@
         "stadium": "Levi's Stadium",
         "city": "Santa Clara"
       },
-      "utc_datetime": "2026-06-19T22:00:00Z"
+      "utc_datetime": "2026-06-19T22:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 17,
@@ -315,7 +331,8 @@
         "stadium": "Lumen Field",
         "city": "Seattle"
       },
-      "utc_datetime": "2026-06-24T22:00:00Z"
+      "utc_datetime": "2026-06-24T22:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 18,
@@ -327,7 +344,8 @@
         "stadium": "BC Place",
         "city": "Vancouver"
       },
-      "utc_datetime": "2026-06-24T22:00:00Z"
+      "utc_datetime": "2026-06-24T22:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 19,
@@ -339,7 +357,8 @@
         "stadium": "SoFi Stadium",
         "city": "Los Angeles"
       },
-      "utc_datetime": "2026-06-13T01:00:00Z"
+      "utc_datetime": "2026-06-13T01:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 20,
@@ -351,7 +370,8 @@
         "stadium": "Estadio Azteca",
         "city": "Mexico City"
       },
-      "utc_datetime": "2026-06-14T04:00:00Z"
+      "utc_datetime": "2026-06-14T04:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 21,
@@ -363,7 +383,8 @@
         "stadium": "BMO Field",
         "city": "Toronto"
       },
-      "utc_datetime": "2026-06-19T19:00:00Z"
+      "utc_datetime": "2026-06-19T19:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 22,
@@ -375,7 +396,8 @@
         "stadium": "NRG Stadium",
         "city": "Houston"
       },
-      "utc_datetime": "2026-06-20T03:00:00Z"
+      "utc_datetime": "2026-06-20T03:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 23,
@@ -387,7 +409,8 @@
         "stadium": "AT&T Stadium",
         "city": "Dallas"
       },
-      "utc_datetime": "2026-06-26T02:00:00Z"
+      "utc_datetime": "2026-06-26T02:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 24,
@@ -399,7 +422,8 @@
         "stadium": "Estadio BBVA",
         "city": "Monterrey"
       },
-      "utc_datetime": "2026-06-26T02:00:00Z"
+      "utc_datetime": "2026-06-26T02:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 25,
@@ -411,7 +435,8 @@
         "stadium": "NRG Stadium",
         "city": "Houston"
       },
-      "utc_datetime": "2026-06-14T17:00:00Z"
+      "utc_datetime": "2026-06-14T17:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 26,
@@ -423,7 +448,8 @@
         "stadium": "Estadio Akron",
         "city": "Guadalajara"
       },
-      "utc_datetime": "2026-06-14T23:00:00Z"
+      "utc_datetime": "2026-06-14T23:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 27,
@@ -435,7 +461,8 @@
         "stadium": "Mercedes-Benz Stadium",
         "city": "Atlanta"
       },
-      "utc_datetime": "2026-06-20T20:00:00Z"
+      "utc_datetime": "2026-06-20T20:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 28,
@@ -447,7 +474,8 @@
         "stadium": "Gillette Stadium",
         "city": "Boston"
       },
-      "utc_datetime": "2026-06-21T00:00:00Z"
+      "utc_datetime": "2026-06-21T00:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 29,
@@ -459,7 +487,8 @@
         "stadium": "Hard Rock Stadium",
         "city": "Miami"
       },
-      "utc_datetime": "2026-06-25T20:00:00Z"
+      "utc_datetime": "2026-06-25T20:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 30,
@@ -471,7 +500,8 @@
         "stadium": "Lincoln Financial Field",
         "city": "Philadelphia"
       },
-      "utc_datetime": "2026-06-25T20:00:00Z"
+      "utc_datetime": "2026-06-25T20:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 31,
@@ -483,7 +513,8 @@
         "stadium": "Levi's Stadium",
         "city": "Santa Clara"
       },
-      "utc_datetime": "2026-06-14T20:00:00Z"
+      "utc_datetime": "2026-06-14T20:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 32,
@@ -495,7 +526,8 @@
         "stadium": "Lumen Field",
         "city": "Seattle"
       },
-      "utc_datetime": "2026-06-15T02:00:00Z"
+      "utc_datetime": "2026-06-15T02:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 33,
@@ -507,7 +539,8 @@
         "stadium": "BC Place",
         "city": "Vancouver"
       },
-      "utc_datetime": "2026-06-20T17:00:00Z"
+      "utc_datetime": "2026-06-20T17:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 34,
@@ -519,7 +552,8 @@
         "stadium": "Estadio BBVA",
         "city": "Monterrey"
       },
-      "utc_datetime": "2026-06-21T04:00:00Z"
+      "utc_datetime": "2026-06-21T04:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 35,
@@ -531,7 +565,8 @@
         "stadium": "Estadio Azteca",
         "city": "Mexico City"
       },
-      "utc_datetime": "2026-06-25T23:00:00Z"
+      "utc_datetime": "2026-06-25T23:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 36,
@@ -543,7 +578,8 @@
         "stadium": "BMO Field",
         "city": "Toronto"
       },
-      "utc_datetime": "2026-06-25T23:00:00Z"
+      "utc_datetime": "2026-06-25T23:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 37,
@@ -555,7 +591,8 @@
         "stadium": "SoFi Stadium",
         "city": "Los Angeles"
       },
-      "utc_datetime": "2026-06-15T19:00:00Z"
+      "utc_datetime": "2026-06-15T19:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 38,
@@ -567,7 +604,8 @@
         "stadium": "MetLife Stadium",
         "city": "New York/New Jersey"
       },
-      "utc_datetime": "2026-06-16T01:00:00Z"
+      "utc_datetime": "2026-06-16T01:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 39,
@@ -579,7 +617,8 @@
         "stadium": "NRG Stadium",
         "city": "Houston"
       },
-      "utc_datetime": "2026-06-21T19:00:00Z"
+      "utc_datetime": "2026-06-21T19:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 40,
@@ -591,7 +630,8 @@
         "stadium": "GEHA Field at Arrowhead",
         "city": "Kansas City"
       },
-      "utc_datetime": "2026-06-22T01:00:00Z"
+      "utc_datetime": "2026-06-22T01:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 41,
@@ -603,7 +643,8 @@
         "stadium": "AT&T Stadium",
         "city": "Dallas"
       },
-      "utc_datetime": "2026-06-27T03:00:00Z"
+      "utc_datetime": "2026-06-27T03:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 42,
@@ -615,7 +656,8 @@
         "stadium": "Estadio BBVA",
         "city": "Monterrey"
       },
-      "utc_datetime": "2026-06-27T03:00:00Z"
+      "utc_datetime": "2026-06-27T03:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 43,
@@ -627,7 +669,8 @@
         "stadium": "Estadio Akron",
         "city": "Guadalajara"
       },
-      "utc_datetime": "2026-06-15T16:00:00Z"
+      "utc_datetime": "2026-06-15T16:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 44,
@@ -639,7 +682,8 @@
         "stadium": "Mercedes-Benz Stadium",
         "city": "Atlanta"
       },
-      "utc_datetime": "2026-06-15T22:00:00Z"
+      "utc_datetime": "2026-06-15T22:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 45,
@@ -651,7 +695,8 @@
         "stadium": "Gillette Stadium",
         "city": "Boston"
       },
-      "utc_datetime": "2026-06-21T16:00:00Z"
+      "utc_datetime": "2026-06-21T16:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 46,
@@ -663,7 +708,8 @@
         "stadium": "Hard Rock Stadium",
         "city": "Miami"
       },
-      "utc_datetime": "2026-06-21T22:00:00Z"
+      "utc_datetime": "2026-06-21T22:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 47,
@@ -675,7 +721,8 @@
         "stadium": "Estadio Akron",
         "city": "Guadalajara"
       },
-      "utc_datetime": "2026-06-27T00:00:00Z"
+      "utc_datetime": "2026-06-27T00:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 48,
@@ -687,7 +734,8 @@
         "stadium": "Lincoln Financial Field",
         "city": "Philadelphia"
       },
-      "utc_datetime": "2026-06-27T00:00:00Z"
+      "utc_datetime": "2026-06-27T00:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 49,
@@ -699,7 +747,8 @@
         "stadium": "BC Place",
         "city": "Vancouver"
       },
-      "utc_datetime": "2026-06-16T19:00:00Z"
+      "utc_datetime": "2026-06-16T19:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 50,
@@ -711,7 +760,8 @@
         "stadium": "Estadio Azteca",
         "city": "Mexico City"
       },
-      "utc_datetime": "2026-06-16T22:00:00Z"
+      "utc_datetime": "2026-06-16T22:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 51,
@@ -723,7 +773,8 @@
         "stadium": "BMO Field",
         "city": "Toronto"
       },
-      "utc_datetime": "2026-06-22T21:00:00Z"
+      "utc_datetime": "2026-06-22T21:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 52,
@@ -735,7 +786,8 @@
         "stadium": "SoFi Stadium",
         "city": "Los Angeles"
       },
-      "utc_datetime": "2026-06-23T00:00:00Z"
+      "utc_datetime": "2026-06-23T00:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 53,
@@ -747,7 +799,8 @@
         "stadium": "MetLife Stadium",
         "city": "New York/New Jersey"
       },
-      "utc_datetime": "2026-06-26T19:00:00Z"
+      "utc_datetime": "2026-06-26T19:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 54,
@@ -759,7 +812,8 @@
         "stadium": "NRG Stadium",
         "city": "Houston"
       },
-      "utc_datetime": "2026-06-26T19:00:00Z"
+      "utc_datetime": "2026-06-26T19:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 55,
@@ -771,7 +825,8 @@
         "stadium": "GEHA Field at Arrowhead",
         "city": "Kansas City"
       },
-      "utc_datetime": "2026-06-17T01:00:00Z"
+      "utc_datetime": "2026-06-17T01:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 56,
@@ -783,7 +838,8 @@
         "stadium": "AT&T Stadium",
         "city": "Dallas"
       },
-      "utc_datetime": "2026-06-17T04:00:00Z"
+      "utc_datetime": "2026-06-17T04:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 57,
@@ -795,7 +851,8 @@
         "stadium": "Estadio BBVA",
         "city": "Monterrey"
       },
-      "utc_datetime": "2026-06-22T17:00:00Z"
+      "utc_datetime": "2026-06-22T17:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 58,
@@ -807,7 +864,8 @@
         "stadium": "Estadio Akron",
         "city": "Guadalajara"
       },
-      "utc_datetime": "2026-06-23T03:00:00Z"
+      "utc_datetime": "2026-06-23T03:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 59,
@@ -819,7 +877,8 @@
         "stadium": "Mercedes-Benz Stadium",
         "city": "Atlanta"
       },
-      "utc_datetime": "2026-06-28T02:00:00Z"
+      "utc_datetime": "2026-06-28T02:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 60,
@@ -831,7 +890,8 @@
         "stadium": "Gillette Stadium",
         "city": "Boston"
       },
-      "utc_datetime": "2026-06-28T02:00:00Z"
+      "utc_datetime": "2026-06-28T02:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 61,
@@ -843,7 +903,8 @@
         "stadium": "Hard Rock Stadium",
         "city": "Miami"
       },
-      "utc_datetime": "2026-06-17T17:00:00Z"
+      "utc_datetime": "2026-06-17T17:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 62,
@@ -855,7 +916,8 @@
         "stadium": "Lincoln Financial Field",
         "city": "Philadelphia"
       },
-      "utc_datetime": "2026-06-18T02:00:00Z"
+      "utc_datetime": "2026-06-18T02:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 63,
@@ -867,7 +929,8 @@
         "stadium": "Levi's Stadium",
         "city": "Santa Clara"
       },
-      "utc_datetime": "2026-06-23T17:00:00Z"
+      "utc_datetime": "2026-06-23T17:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 64,
@@ -879,7 +942,8 @@
         "stadium": "Lumen Field",
         "city": "Seattle"
       },
-      "utc_datetime": "2026-06-24T02:00:00Z"
+      "utc_datetime": "2026-06-24T02:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 65,
@@ -891,7 +955,8 @@
         "stadium": "BC Place",
         "city": "Vancouver"
       },
-      "utc_datetime": "2026-06-27T23:30:00Z"
+      "utc_datetime": "2026-06-27T23:30:00Z",
+      "matchday": 3
     },
     {
       "match_id": 66,
@@ -903,7 +968,8 @@
         "stadium": "SoFi Stadium",
         "city": "Los Angeles"
       },
-      "utc_datetime": "2026-06-27T23:30:00Z"
+      "utc_datetime": "2026-06-27T23:30:00Z",
+      "matchday": 3
     },
     {
       "match_id": 67,
@@ -915,7 +981,8 @@
         "stadium": "AT&T Stadium",
         "city": "Dallas"
       },
-      "utc_datetime": "2026-06-17T20:00:00Z"
+      "utc_datetime": "2026-06-17T20:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 68,
@@ -927,7 +994,8 @@
         "stadium": "MetLife Stadium",
         "city": "New York/New Jersey"
       },
-      "utc_datetime": "2026-06-17T23:00:00Z"
+      "utc_datetime": "2026-06-17T23:00:00Z",
+      "matchday": 1
     },
     {
       "match_id": 69,
@@ -939,7 +1007,8 @@
         "stadium": "NRG Stadium",
         "city": "Houston"
       },
-      "utc_datetime": "2026-06-23T20:00:00Z"
+      "utc_datetime": "2026-06-23T20:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 70,
@@ -951,7 +1020,8 @@
         "stadium": "GEHA Field at Arrowhead",
         "city": "Kansas City"
       },
-      "utc_datetime": "2026-06-23T23:00:00Z"
+      "utc_datetime": "2026-06-23T23:00:00Z",
+      "matchday": 2
     },
     {
       "match_id": 71,
@@ -963,7 +1033,8 @@
         "stadium": "AT&T Stadium",
         "city": "Dallas"
       },
-      "utc_datetime": "2026-06-27T21:00:00Z"
+      "utc_datetime": "2026-06-27T21:00:00Z",
+      "matchday": 3
     },
     {
       "match_id": 72,
@@ -975,7 +1046,8 @@
         "stadium": "Estadio BBVA",
         "city": "Monterrey"
       },
-      "utc_datetime": "2026-06-27T21:00:00Z"
+      "utc_datetime": "2026-06-27T21:00:00Z",
+      "matchday": 3
     }
   ],
   "knockout_bracket": [

@@ -455,6 +455,19 @@ function renderTabla() {
 
 // ===== Calendario completo =====
 let selectedGroup = 'all';
+let visibleJornadas = 1;
+
+function jornadaDe(m) {
+  if (m.matchday) return m.matchday;
+  // Fallback sin dato de la API: posición del partido dentro de su grupo (2 por jornada)
+  if (!jornadaDe._cache) {
+    const byGroup = {};
+    sortedMatches().forEach(x => { (byGroup[x.group] = byGroup[x.group] || []).push(x); });
+    jornadaDe._cache = {};
+    Object.values(byGroup).forEach(list => list.forEach((x, i) => { jornadaDe._cache[x.match_id] = Math.floor(i / 2) + 1; }));
+  }
+  return jornadaDe._cache[m.match_id] || 1;
+}
 
 function renderCalendario() {
   const groups = [...new Set(tournament.matches.map(m => m.group))].sort();
@@ -468,17 +481,43 @@ function renderCalendario() {
   gf.style.opacity = locked ? '0.45' : '';
   gf.style.pointerEvents = locked ? 'none' : '';
 
-  const ms = filteredMatches().filter(m => selectedGroup === 'all' || m.group === selectedGroup);
+  const all = filteredMatches().filter(m => selectedGroup === 'all' || m.group === selectedGroup);
+  // Por jornadas con "ver más" — salvo con filtros activos (pocas tarjetas)
+  const paginate = !locked && selectedGroup === 'all';
+  const maxJ = all.length ? Math.max(...all.map(jornadaDe)) : 1;
+  const ms = paginate ? all.filter(m => jornadaDe(m) <= visibleJornadas) : all;
+
+  const moreEl = $('cal-more');
+  if (paginate && visibleJornadas < maxJ) {
+    moreEl.innerHTML = `<button onclick="showMoreJornadas()" style="cursor: pointer; padding: 10px 22px; background: #FBF7EA; color: #17150F; border: 2px dashed #17150F; border-radius: 3px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;">Ver jornada ${visibleJornadas + 1} ↓</button>`;
+  } else {
+    moreEl.innerHTML = '';
+  }
+
+  let lastJ = 0;
   $('matches-grid').innerHTML = ms.map(m => {
-    const res = result(m);
-    const playing = isLive(m);
-    let status;
-    const lv = liveInfo(m);
-    if (lv) status = `<span class="bebas" style="font-size: 22px; color: #C8372D;">${lv.s[0]}–${lv.s[1]}</span> <span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>`;
-    else if (playing) status = '<span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>';
-    else if (res) status = `<span class="bebas" style="font-size: 22px; color: #0A5B2D;">${res.s[0]}–${res.s[1]}</span> <span style="color: #8A8470; font-weight: 800;">FINAL</span>`;
-    else status = `<span style="color: #4A463A; font-weight: 700;">${fmtDay(m)} · ${fmtTime(m)} h</span>`;
-    return `
+    let header = '';
+    if (paginate && jornadaDe(m) !== lastJ) {
+      lastJ = jornadaDe(m);
+      header = `<div style="grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; margin-top: ${lastJ > 1 ? '14px' : '0'};">
+        <span class="bebas" style="font-size: 24px; letter-spacing: 0.04em;">Jornada ${lastJ}</span>
+        <span style="flex: 1; height: 2px; background: #17150F;"></span>
+      </div>`;
+    }
+    return header + matchCard(m);
+  }).join('');
+}
+
+function matchCard(m) {
+  const res = result(m);
+  const playing = isLive(m);
+  let status;
+  const lv = liveInfo(m);
+  if (lv) status = `<span class="bebas" style="font-size: 22px; color: #C8372D;">${lv.s[0]}–${lv.s[1]}</span> <span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>`;
+  else if (playing) status = '<span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>';
+  else if (res) status = `<span class="bebas" style="font-size: 22px; color: #0A5B2D;">${res.s[0]}–${res.s[1]}</span> <span style="color: #8A8470; font-weight: 800;">FINAL</span>`;
+  else status = `<span style="color: #4A463A; font-weight: 700;">${fmtDay(m)} · ${fmtTime(m)} h</span>`;
+  return `
       <div style="background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 3px 3px 0 #17150F; padding: 12px 14px;">
         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #6B675C; border-bottom: 1px solid #DCD3BC; padding-bottom: 6px;">
           <span>Grupo ${esc(m.group || '?')}</span>
@@ -497,10 +536,10 @@ function renderCalendario() {
         </div>
         <div style="text-align: center; margin-top: 8px; font-size: 11px; letter-spacing: 0.06em;">${status}</div>
       </div>`;
-  }).join('');
 }
 
 window.filterGroup = g => { selectedGroup = g; renderCalendario(); };
+window.showMoreJornadas = () => { visibleJornadas++; renderCalendario(); };
 
 // ===== Combobox del buscador de selecciones =====
 function tournamentTeams() {
