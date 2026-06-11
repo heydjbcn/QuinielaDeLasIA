@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WorldCupBench — La quiniela de las máquinas · Mundial 2026</title>
+  <title>MundialBench — La quiniela de las máquinas · Mundial 2026</title>
   <meta name="description" content="10 modelos de IA punteros rellenaron su quiniela completa del Mundial FIFA 2026 antes del pitido inicial. Cada resultado real reparte los puntos.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +37,7 @@
 
   <!-- ===== CABECERA ===== -->
   <header class="section-pad" style="padding-top: clamp(28px, 4vw, 48px); text-align: center;">
-    <div class="bebas" style="font-size: clamp(56px, 11vw, 132px); line-height: 0.9; letter-spacing: 0.01em; color: #17150F;">WORLDCUP<span style="color: #0A6B33;">BENCH</span></div>
+    <div class="bebas" style="font-size: clamp(56px, 11vw, 132px); line-height: 0.9; letter-spacing: 0.01em; color: #17150F;">MUNDIAL<span style="color: #0A6B33;">BENCH</span></div>
     <div style="display: flex; align-items: center; gap: 14px; margin-top: 14px;">
       <span style="flex: 1; height: 2px; background: #17150F;"></span>
       <span style="font-size: clamp(11px, 1.4vw, 13px); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;">La quiniela de las máquinas · Mundial 2026</span>
@@ -45,6 +45,18 @@
     </div>
     <div id="header-sub" style="margin-top: 6px; border-bottom: 6px double #17150F; padding-bottom: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">10 modelos frontera · 104 partidos · 1 mismo prompt · 0 ediciones post-hoc</div>
   </header>
+
+  <!-- ===== MENÚ ===== -->
+  <nav style="position: sticky; top: 0; z-index: 50; background: #F2EBDA; border-bottom: 2px solid #17150F;">
+    <div class="section-pad" style="display: flex; gap: clamp(14px, 3vw, 28px); overflow-x: auto; padding-top: 10px; padding-bottom: 10px; max-width: 1140px; margin: 0 auto; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;">
+      <a href="#marcador" class="wcb-link" style="color: #17150F; text-decoration: none;">⚽ Marcador</a>
+      <a href="#quiniela" class="wcb-link" style="color: #17150F; text-decoration: none;">✕ Quiniela</a>
+      <a href="#favoritas" class="wcb-link" style="color: #17150F; text-decoration: none;">🏆 Favoritas</a>
+      <a href="#clasificacion" class="wcb-link" style="color: #17150F; text-decoration: none;">📊 Clasificación</a>
+      <a href="#partidos" class="wcb-link" style="color: #17150F; text-decoration: none;">📅 Partidos</a>
+      <a href="#reglas" class="wcb-link" style="color: #17150F; text-decoration: none;">📐 Reglas</a>
+    </div>
+  </nav>
 
   <!-- ===== TITULAR ===== -->
   <section class="section-pad" style="padding-top: clamp(28px, 4vw, 44px); padding-bottom: 8px; max-width: 1140px; margin: 0 auto;">
@@ -57,7 +69,7 @@
   </section>
 
   <!-- ===== MARCADOR + SELECTOR ===== -->
-  <section class="section-pad" style="padding-top: 24px; padding-bottom: 12px; max-width: 1140px; margin: 0 auto;">
+  <section id="marcador" class="section-pad" style="padding-top: 24px; padding-bottom: 12px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
 
     <!-- boletos selectores -->
     <div id="chips" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 14px;"></div>
@@ -119,7 +131,7 @@
   </section>
 
   <!-- ===== LA QUINIELA ===== -->
-  <section class="section-pad" style="padding-top: 40px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+  <section id="quiniela" class="section-pad" style="padding-top: 40px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
     <div class="section-head">
       <h2>La quiniela, máquina por máquina</h2>
       <span id="picks-subtitle" class="sub"></span>
@@ -146,7 +158,7 @@
   </section>
 
   <!-- ===== LA FAVORITA ===== -->
-  <section class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+  <section id="favoritas" class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
     <div class="section-head">
       <h2>¿Quién levanta la copa?</h2>
       <span class="sub">Pick de campeón · Final el 19 de julio en el MetLife</span>
@@ -155,7 +167,7 @@
   </section>
 
   <!-- ===== TABLA GENERAL ===== -->
-  <section class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto;">
+  <section id="clasificacion" class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
     <div class="section-head">
       <h2>Tabla general</h2>
       <span id="table-sub" class="sub" style="color: #C8372D;"></span>
@@ -173,8 +185,18 @@
     <p id="table-foot" style="margin: 12px 0 0; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8A8470;"></p>
   </section>
 
+  <!-- ===== CALENDARIO ===== -->
+  <section id="partidos" class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
+    <div class="section-head">
+      <h2>El calendario</h2>
+      <span id="cal-sub" class="sub">Fase de grupos · hora peninsular española</span>
+    </div>
+    <div id="group-filters" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;"></div>
+    <div id="matches-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 18px;"></div>
+  </section>
+
   <!-- ===== METODOLOGÍA ===== -->
-  <section class="section-pad" style="padding-top: 44px; padding-bottom: 56px; max-width: 1140px; margin: 0 auto;">
+  <section id="reglas" class="section-pad" style="padding-top: 44px; padding-bottom: 56px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
     <div style="border-bottom: 3px solid #17150F; padding-bottom: 10px;">
       <h2 class="bebas" style="margin: 0; font-size: clamp(32px, 4.5vw, 52px); line-height: 1; font-weight: 400;">Las reglas del juego</h2>
     </div>
@@ -204,11 +226,11 @@
 
   <!-- ===== PIE ===== -->
   <footer style="border-top: 6px double #17150F; padding: 22px clamp(16px, 4vw, 56px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
-    <span class="bebas" style="font-size: 20px; letter-spacing: 0.04em;">WORLDCUP<span style="color: #0A6B33;">BENCH</span></span>
+    <span class="bebas" style="font-size: 20px; letter-spacing: 0.04em;">MUNDIAL<span style="color: #0A6B33;">BENCH</span></span>
     <span style="font-size: 12px; font-style: italic; color: #6B675C;">El Mundial es el eval definitivo.</span>
-    <a href="https://github.com/mverab/WorldCupBench" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/mverab/WorldCupBench ↗</a>
+    <a href="https://github.com/heydjbcn/MundialBench" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/MundialBench ↗</a>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

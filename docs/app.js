@@ -50,11 +50,12 @@ let leaderboard = null, tournament = null, summary = null, picksData = null;
 let selectedId = null;
 
 async function loadData() {
+  const get = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
   const [lb, tn, ps, pk] = await Promise.all([
-    fetch('data/leaderboard.json').then(r => r.ok ? r.json() : null).catch(() => null),
-    fetch('data/tournament.json').then(r => r.ok ? r.json() : null).catch(() => null),
-    fetch('data/predictions_summary.json').then(r => r.ok ? r.json() : null).catch(() => null),
-    fetch('data/picks.json').then(r => r.ok ? r.json() : null).catch(() => null),
+    get('data/leaderboard.json'),
+    get('data/tournament.json'),
+    get('data/predictions_summary.json'),
+    get('data/picks.json'),
   ]);
   leaderboard = lb; tournament = tn; summary = ps; picksData = pk;
   render();
@@ -87,6 +88,7 @@ function render() {
   renderBoard();
   renderFavoritas();
   renderTabla();
+  renderCalendario();
 }
 
 function renderTopbar() {
@@ -330,6 +332,49 @@ function renderTabla() {
     $('table-foot').textContent = '';
   }
 }
+
+// ===== Calendario completo =====
+let selectedGroup = 'all';
+
+function renderCalendario() {
+  const groups = [...new Set(tournament.matches.map(m => m.group))].sort();
+  const btn = (id, label) => {
+    const active = selectedGroup === id;
+    return `<button onclick="filterGroup('${id}')" style="cursor: pointer; padding: 6px 14px; background: ${active ? '#0A6B33' : '#FBF7EA'}; color: ${active ? '#F6F0E1' : '#17150F'}; border: 2px ${active ? 'solid' : 'dashed'} #17150F; border-radius: 3px; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;">${label}</button>`;
+  };
+  $('group-filters').innerHTML = btn('all', 'Todos') + groups.map(g => btn(g, 'Grupo ' + g)).join('');
+
+  const ms = sortedMatches().filter(m => selectedGroup === 'all' || m.group === selectedGroup);
+  $('matches-grid').innerHTML = ms.map(m => {
+    const res = result(m);
+    const live = isLive(m);
+    let status;
+    if (live) status = '<span class="wcb-blink" style="color: #C8372D; font-weight: 800;">● EN VIVO</span>';
+    else if (res) status = `<span class="bebas" style="font-size: 22px; color: #0A5B2D;">${res.s[0]}–${res.s[1]}</span> <span style="color: #8A8470; font-weight: 800;">FINAL</span>`;
+    else status = `<span style="color: #4A463A; font-weight: 700;">${fmtDay(m)} · ${fmtTime(m)} h</span>`;
+    return `
+      <div style="background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 3px 3px 0 #17150F; padding: 12px 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #6B675C; border-bottom: 1px solid #DCD3BC; padding-bottom: 6px;">
+          <span>Grupo ${esc(m.group || '?')}</span>
+          <span>${esc(m.venue?.city || '')}</span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px;">
+          <div style="text-align: center; flex: 1; min-width: 0;">
+            <div style="font-size: 26px; line-height: 1;">${codeToFlag(m.home_team)}</div>
+            <div class="bebas" style="font-size: 16px; margin-top: 2px;">${esc(m.home_team)}</div>
+          </div>
+          <div style="font-size: 10px; font-weight: 800; color: #8A8470;">VS</div>
+          <div style="text-align: center; flex: 1; min-width: 0;">
+            <div style="font-size: 26px; line-height: 1;">${codeToFlag(m.away_team)}</div>
+            <div class="bebas" style="font-size: 16px; margin-top: 2px;">${esc(m.away_team)}</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 8px; font-size: 11px; letter-spacing: 0.06em;">${status}</div>
+      </div>`;
+  }).join('');
+}
+
+window.filterGroup = g => { selectedGroup = g; renderCalendario(); };
 
 loadData();
 setInterval(loadData, 60000);
