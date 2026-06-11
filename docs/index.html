@@ -84,6 +84,16 @@
     .team-opt:hover { background: #F3ECD8; }
     .team-opt .flag { height: 14px; }
     .team-opt .code { margin-left: auto; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A8470; }
+    /* Aciertos: fila por partido jugado */
+    .ac-row { display: grid; grid-template-columns: minmax(180px, 1.3fr) 110px 130px minmax(150px, 1fr); gap: 14px; align-items: center; padding: 14px 16px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 3px 3px 0 #17150F; margin-bottom: 12px; cursor: pointer; }
+    .ac-row:hover { background: #F3ECD8; }
+    @media (max-width: 640px) {
+      .ac-row { grid-template-columns: 1fr 1fr !important; grid-template-areas: "match match" "real dijo" "stats stats"; row-gap: 10px !important; }
+      .ac-match { grid-area: match; }
+      .ac-real { grid-area: real; }
+      .ac-dijo { grid-area: dijo; }
+      .ac-stats { grid-area: stats; }
+    }
   </style>
 </head>
 <body>
@@ -128,6 +138,7 @@
       <a href="#quiniela" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6 L18 18 M18 6 L6 18"/></svg>Quiniela</a>
       <a href="#favoritas" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4.5a3 3 0 0 0 3 4.5M17 6h2.5a3 3 0 0 1-3 4.5"/><path d="M12 14v3M8.5 20h7M10 20v-3h4v3"/></svg>Favoritas</a>
       <a href="#clasificacion" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 20V10M12 20V4M19 20v-8"/></svg>Clasificación</a>
+      <a href="#aciertos" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>Aciertos</a>
       <a href="#partidos" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M4 9h16M8 3v4M16 3v4"/></svg>Partidos</a>
       <a href="#reglas" class="wcb-link nav-item" style="color: #17150F; text-decoration: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h11l3 3v13H5z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Reglas</a>
     </div>
@@ -268,6 +279,16 @@
     <p id="table-foot" style="margin: 12px 0 0; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8A8470;"></p>
   </section>
 
+  <!-- ===== ACIERTOS ===== -->
+  <section id="aciertos" class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
+    <div class="section-head">
+      <h2>El examen de las IA</h2>
+      <span class="sub">Previsión de las IA vs resultado real</span>
+    </div>
+    <div id="aciertos-kpis" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 20px;"></div>
+    <div id="aciertos-list" style="margin-top: 18px;"></div>
+  </section>
+
   <!-- ===== CALENDARIO ===== -->
   <section id="partidos" class="section-pad" style="padding-top: 44px; padding-bottom: 16px; max-width: 1140px; margin: 0 auto; scroll-margin-top: 50px;">
     <div class="section-head">
@@ -314,6 +335,6 @@
     <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA ↗</a>
   </footer>
 
-  <script src="app.js?v=9"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

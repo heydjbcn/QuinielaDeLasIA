@@ -103,8 +103,83 @@ function render() {
   renderBoard();
   renderFavoritas();
   renderTabla();
+  renderAciertos();
   renderCalendario();
 }
+
+// ===== El examen de las IA (previsión vs resultado) =====
+function renderAciertos() {
+  const kpisEl = $('aciertos-kpis'), listEl = $('aciertos-list');
+  if (!kpisEl || !listEl) return;
+  const played = sortedMatches().filter(teamFilter).filter(m => result(m)).reverse();
+
+  if (!played.length) {
+    kpisEl.innerHTML = '';
+    listEl.innerHTML = '<p style="padding: 24px 0; text-align: center; color: #8A8470; font-size: 14px;">Aún no hay partidos puntuados. En cuanto acabe el primero, aquí empieza el examen.</p>';
+    return;
+  }
+
+  let sumPct = 0, totalExacts = 0;
+  const rows = played.map(m => {
+    const res = result(m);
+    const o = res.o || (res.s[0] > res.s[1] ? 'home' : res.s[0] < res.s[1] ? 'away' : 'draw');
+    const entries = matchPicks(m);
+    const n = entries.length || 1;
+    const hits = entries.filter(e => e.p.r === o).length;
+    const exacts = entries.filter(e => e.p.s[0] === res.s[0] && e.p.s[1] === res.s[1]).length;
+    const counts = {};
+    entries.forEach(e => { const k = e.p.s.join('–'); counts[k] = (counts[k] || 0) + 1; });
+    const mode = Object.entries(counts).sort((a, b) => b[1] - a[1])[0] || ['–', 0];
+    const consHit = hits / n >= 0.5;
+    const pctHit = Math.round(hits / n * 100);
+    sumPct += pctHit;
+    totalExacts += exacts;
+    return { m, res, mode, hits, exacts, n, consHit, pctHit };
+  });
+
+  const kpi = (big, label) => `
+    <div style="background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 4px 4px 0 #17150F; padding: 14px 16px; text-align: center;">
+      <div class="bebas" style="font-size: 34px; line-height: 1; color: #0A5B2D;">${big}</div>
+      <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #6B675C; margin-top: 4px;">${label}</div>
+    </div>`;
+  kpisEl.innerHTML =
+    kpi(`${played.length}/104`, 'Partidos puntuados') +
+    kpi(`${Math.round(sumPct / played.length)}%`, 'Acierto medio de signo') +
+    kpi(totalExacts, 'Marcadores clavados');
+
+  listEl.innerHTML = rows.map(({ m, res, mode, hits, exacts, n, consHit, pctHit }) => `
+    <div class="ac-row" onclick="goQuiniela('${String(m.match_id)}')">
+      <div class="ac-match" style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+        <span style="font-size: 20px;">${codeToFlag(m.home_team)}</span>
+        <span class="bebas" style="font-size: 20px; white-space: nowrap;">${esc(m.home_team)}–${esc(m.away_team)}</span>
+        <span style="font-size: 20px;">${codeToFlag(m.away_team)}</span>
+        <span style="font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: #8A8470; text-transform: uppercase; margin-left: 4px;">Grupo ${esc(m.group || '?')}</span>
+      </div>
+      <div class="ac-real" style="text-align: center;">
+        <div style="font-size: 8px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #6B675C;">Resultado</div>
+        <div class="bebas" style="font-size: 30px; line-height: 1; color: #17150F;">${res.s[0]}–${res.s[1]}</div>
+      </div>
+      <div class="ac-dijo" style="text-align: center;">
+        <div style="font-size: 8px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #6B675C;">Las IA dijeron</div>
+        <div class="bebas" style="font-size: 24px; line-height: 1; color: ${consHit ? '#0A5B2D' : '#C8372D'};">${mode[0]} ${consHit ? '✓' : '✕'}</div>
+      </div>
+      <div class="ac-stats">
+        <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #4A463A;">
+          <span>${hits}/${n} acertaron el signo</span>
+          <span>${exacts} ${exacts === 1 ? 'pleno' : 'plenos'}</span>
+        </div>
+        <div style="display: flex; height: 10px; border: 1.5px solid #17150F; border-radius: 2px; overflow: hidden; background: #FBF7EA; margin-top: 5px;">
+          <div style="width: ${pctHit}%; background: #0A6B33;"></div>
+          <div style="width: ${100 - pctHit}%; background: #C8372D;"></div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+window.goQuiniela = id => {
+  selectMatch(id);
+  document.getElementById('quiniela')?.scrollIntoView({ behavior: 'smooth' });
+};
 
 function renderTopbar() {
   const now = new Date();
