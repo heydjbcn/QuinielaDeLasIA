@@ -46,6 +46,8 @@
       /* Filtros de grupo: una sola línea deslizable, no apilados */
       #group-filters { flex-wrap: nowrap !important; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
       #group-filters button { flex: none; white-space: nowrap; }
+      /* Barra superior: centrada y a tres líneas grandes */
+      .topbar { flex-direction: column; align-items: center; text-align: center; gap: 6px; font-size: clamp(12px, 3.6vw, 16px); line-height: 1.35; }
     }
     .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
   </style>
@@ -53,7 +55,7 @@
 <body>
 
   <!-- ===== BARRA SUPERIOR ===== -->
-  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 10px clamp(16px, 4vw, 56px); border-bottom: 2px solid #17150F; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A463A;">
+  <div class="topbar" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 10px clamp(16px, 4vw, 56px); border-bottom: 2px solid #17150F; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A463A;">
     <span id="bar-date">Mundial 2026</span>
     <span style="display: flex; align-items: center; gap: 8px;"><span class="wcb-blink" style="width: 8px; height: 8px; border-radius: 50%; background: #C8372D;"></span><span id="bar-mid">Hoy ruedan el balón y los modelos</span></span>
     <span>Predicciones congeladas · 10 jun 2026</span>
@@ -61,6 +63,7 @@
 
   <!-- ===== CABECERA ===== -->
   <header class="section-pad" style="padding-top: clamp(28px, 4vw, 48px); text-align: center;">
+    <img src="logo-fifa-2026.png" alt="Copa Mundial de la FIFA 2026" style="height: clamp(90px, 16vw, 150px); width: auto; display: block; margin: 0 auto 12px;">
     <div class="bebas" style="font-size: clamp(56px, 11vw, 132px); line-height: 0.9; letter-spacing: 0.01em; color: #17150F;">MUNDIAL <span style="color: #0A6B33;">2026</span></div>
     <div style="display: flex; align-items: center; gap: 14px; margin-top: 14px;">
       <span style="flex: 1; height: 2px; background: #17150F;"></span>
