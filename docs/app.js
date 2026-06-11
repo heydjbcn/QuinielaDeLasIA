@@ -323,8 +323,9 @@ function renderMatches() {
 
     const matches = group === 'all' ? tournament.matches : tournament.matches.filter(m => m.group === group);
     gridEl.innerHTML = matches.map(m => {
-      const date = new Date(m.date + 'T00:00:00');
-      const dateStr = date.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      const dateStr = m.utc_datetime
+        ? new Date(m.utc_datetime).toLocaleString('es-ES', { timeZone: 'Europe/Madrid', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' h'
+        : new Date(m.date + 'T00:00:00').toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
       return `
         <div class="glass rounded-xl p-4 hover:border-gold/30 transition">
           <div class="flex items-center justify-between mb-3">
