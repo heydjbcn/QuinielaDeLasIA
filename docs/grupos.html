@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los grupos — La quiniela de las IA · Mundial 2026</title>
+  <meta name="description" content="Clasificación en vivo de los 12 grupos del Mundial 2026: puntos, goles, diferencia y criterios de desempate.">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#F2EBDA">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #F2EBDA; }
+    * { box-sizing: border-box; }
+    ::selection { background: #0A6B33; color: #F6F0E1; }
+    @keyframes wcb-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+    .wcb-blink { animation: wcb-blink 1.4s ease-in-out infinite; }
+    .wcb-link:hover { color: #0A6B33; }
+    body { min-height: 100vh; color: #17150F; font-family: 'Archivo', sans-serif; }
+    .bebas { font-family: 'Bebas Neue', sans-serif; }
+    .section-pad { padding-left: clamp(16px, 4vw, 56px); padding-right: clamp(16px, 4vw, 56px); }
+    .flag { height: 1em; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px; vertical-align: -0.1em; display: inline-block; }
+    .g-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .g-table th { font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C; padding: 6px 4px; border-bottom: 2px solid #17150F; text-align: center; }
+    .g-table th:first-child { text-align: left; }
+    .g-table td { padding: 7px 4px; border-bottom: 1px solid #DCD3BC; text-align: center; }
+    .g-table td:first-child { text-align: left; white-space: nowrap; }
+    .g-table tr:last-child td { border-bottom: none; }
+    .pos-q { background: rgba(10, 107, 51, 0.12); }
+    .pos-3 { background: rgba(245, 158, 11, 0.12); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BARRA SUPERIOR ===== -->
+  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 10px clamp(16px, 4vw, 56px); border-bottom: 2px solid #17150F; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A463A;">
+    <a href="index.html" class="wcb-link" style="color: #17150F; text-decoration: none; font-weight: 800;">&larr; Portada</a>
+    <span id="bar-date"></span>
+    <a href="espana.html" class="wcb-link" style="color: #C8372D; text-decoration: none; font-weight: 800; display: inline-flex; align-items: center; gap: 6px;"><img src="https://flagcdn.com/es.svg" alt="ESP" style="height: 11px; width: auto; border: 1px solid rgba(23,21,15,0.3); border-radius: 2px;">Espa&ntilde;a</a>
+  </div>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="section-pad" style="padding-top: clamp(28px, 4vw, 48px); text-align: center;">
+    <div class="bebas" style="font-size: clamp(52px, 11vw, 120px); line-height: 0.9; letter-spacing: 0.01em; color: #17150F;">LOS <span style="color: #0A6B33;">GRUPOS</span></div>
+    <div style="display: flex; align-items: center; gap: 14px; margin-top: 14px;">
+      <span style="flex: 1; height: 2px; background: #17150F;"></span>
+      <span style="font-size: clamp(11px, 1.4vw, 13px); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;">Clasificaci&oacute;n en vivo &middot; Mundial 2026</span>
+      <span style="flex: 1; height: 2px; background: #17150F;"></span>
+    </div>
+    <div style="margin-top: 6px; border-bottom: 2px solid #17150F; padding-bottom: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #6B675C;">
+      <span><span style="display: inline-block; width: 10px; height: 10px; background: rgba(10,107,51,0.35); border: 1px solid #17150F; vertical-align: -1px;"></span> A octavos (1&ordm; y 2&ordm;)</span>
+      <span><span style="display: inline-block; width: 10px; height: 10px; background: rgba(245,158,11,0.35); border: 1px solid #17150F; vertical-align: -1px;"></span> Posible mejor tercero (pasan 8 de 12)</span>
+    </div>
+  </header>
+
+  <!-- ===== GRUPOS ===== -->
+  <main class="section-pad" style="max-width: 1240px; margin: 0 auto; padding-top: clamp(24px, 3vw, 40px);">
+    <div id="grupos-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px;"></div>
+
+    <!-- Mejores terceros -->
+    <section style="margin-top: 48px; padding-bottom: 16px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 3px solid #17150F; padding-bottom: 10px;">
+        <h2 class="bebas" style="margin: 0; font-size: clamp(32px, 4.5vw, 52px); line-height: 1; font-weight: 400;">Los mejores terceros</h2>
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6B675C;">Pasan los 8 mejores de los 12</span>
+      </div>
+      <div style="overflow-x: auto; margin-top: 18px;">
+        <div style="min-width: 480px; background: #FBF7EA; border: 2px solid #17150F; border-radius: 4px; box-shadow: 5px 5px 0 #17150F; padding: 4px 14px 8px;">
+          <table class="g-table" id="terceros-table"></table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== PIE ===== -->
+  <footer style="border-top: 6px double #17150F; margin-top: 24px; padding: 22px clamp(16px, 4vw, 56px) 56px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+    <a href="index.html" class="wcb-link bebas" style="font-size: 20px; letter-spacing: 0.04em; color: #17150F; text-decoration: none;">MUNDIAL <span style="color: #0A6B33;">2026</span></a>
+    <span style="font-size: 12px; font-style: italic; color: #6B675C;">El Mundial es el eval definitivo.</span>
+    <a href="https://github.com/heydjbcn/QuinielaDeLasIA" target="_blank" class="wcb-link" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #17150F; text-decoration: underline; text-underline-offset: 3px;">github.com/heydjbcn/QuinielaDeLasIA &#8599;</a>
+  </footer>
+
+  <script src="grupos.js?v=1"></script>
+</body>
+</html>
