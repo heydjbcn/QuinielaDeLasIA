@@ -10,6 +10,8 @@ def main():
     for f in sorted(glob.glob("predictions/pre-tournament/*_prediction.json")):
         with open(f) as fp:
             d = json.load(fp)
+        if not d.get("model_name"):
+            continue  # formato alternativo duplicado del upstream
         preds.append(
             {
                 "model_name": d.get("model_name"),

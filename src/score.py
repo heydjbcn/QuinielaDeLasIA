@@ -83,6 +83,8 @@ def load_predictions() -> list:
         try:
             with open(filepath, "r", encoding="utf-8") as f:
                 data = json.load(f)
+            if not data.get("model_name"):
+                continue  # formato alternativo duplicado del upstream
             predictions.append(data)
         except (json.JSONDecodeError, OSError):
             continue
