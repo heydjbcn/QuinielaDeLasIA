@@ -189,17 +189,17 @@ function render() {
       }
       return `
         <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px dashed #DCD3BC;">
-          <span style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 0;">
-            <span class="bebas" style="font-size: 19px; letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(teamName(m.home_team))}</span>
-            <span style="font-size: 20px; flex: none;">${codeToFlag(m.home_team)}</span>
+          <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0;">
+            <span class="bebas" style="font-size: 21px; letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(teamName(m.home_team))}</span>
+            <span style="font-size: 22px; flex: none;">${codeToFlag(m.home_team)}</span>
           </span>
           <span style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 120px;">
             ${centro}
             ${ia}
           </span>
-          <span style="display: flex; align-items: center; gap: 8px; min-width: 0;">
-            <span style="font-size: 20px; flex: none;">${codeToFlag(m.away_team)}</span>
-            <span class="bebas" style="font-size: 19px; letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(teamName(m.away_team))}</span>
+          <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0;">
+            <span style="font-size: 22px; flex: none;">${codeToFlag(m.away_team)}</span>
+            <span class="bebas" style="font-size: 21px; letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(teamName(m.away_team))}</span>
           </span>
         </div>`;
     }).join('');
