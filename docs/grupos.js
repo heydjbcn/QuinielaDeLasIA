@@ -17,9 +17,10 @@ const MAP_3TO2 = {
   MEX: 'MX', RSA: 'ZA', KOR: 'KR', CZE: 'CZ', USA: 'US', BRA: 'BR', ARG: 'AR',
   FRA: 'FR', GER: 'DE', ESP: 'ES', POR: 'PT', NED: 'NL', BEL: 'BE', CRO: 'HR', SUI: 'CH',
   URU: 'UY', COL: 'CO', ECU: 'EC', PAR: 'PY', JPN: 'JP', AUS: 'AU', IRN: 'IR', KSA: 'SA',
-  QAT: 'QA', CAN: 'CA', UKR: 'UA', NOR: 'NO', AUT: 'AT', TUR: 'TR', CIV: 'CI', GHA: 'GH',
-  SEN: 'SN', EGY: 'EG', MAR: 'MA', TUN: 'TN', ALG: 'DZ', COD: 'CD', CPV: 'CV', CUW: 'CW',
-  HAI: 'HT', PAN: 'PA', NZL: 'NZ', UZB: 'UZ', IRQ: 'IQ', JOR: 'JO', BIH: 'BA',
+  QAT: 'QA', CAN: 'CA', POL: 'PL', UKR: 'UA', IRL: 'IE', DEN: 'DK', SWE: 'SE', NOR: 'NO',
+  AUT: 'AT', TUR: 'TR', CIV: 'CI', GHA: 'GH', SEN: 'SN', NGA: 'NG', CMR: 'CM', EGY: 'EG',
+  MAR: 'MA', TUN: 'TN', ALG: 'DZ', COD: 'CD', CPV: 'CV', CUW: 'CW', HAI: 'HT', PAN: 'PA',
+  NZL: 'NZ', UZB: 'UZ', IRQ: 'IQ', JOR: 'JO', BIH: 'BA', SRB: 'RS', ITA: 'IT',
 };
 
 function codeToFlag(code) {
@@ -45,6 +46,29 @@ function result(m) {
 function isPlaying(m) {
   const lv = live?.matches?.[gsId(m)];
   return !!(lv && lv.status !== 'FINISHED');
+}
+function liveScore(m) {
+  const lv = live?.matches?.[gsId(m)];
+  return lv && lv.status !== 'FINISHED' ? lv : null;
+}
+function kickoff(m) { return m.utc_datetime ? new Date(m.utc_datetime) : new Date(m.date + 'T20:00:00Z'); }
+function fmtTime(m) { return kickoff(m).toLocaleTimeString('es-ES', { timeZone: MADRID, hour: '2-digit', minute: '2-digit' }); }
+function fmtDay(m) {
+  const k = kickoff(m), now = new Date();
+  const dayKey = d => d.toLocaleDateString('es-ES', { timeZone: MADRID });
+  if (dayKey(k) === dayKey(now)) return 'HOY';
+  return k.toLocaleDateString('es-ES', { timeZone: MADRID, weekday: 'short', day: 'numeric' }).replace(/[.,]/g, '').toUpperCase();
+}
+function consensus(m) {
+  const byModel = picksData?.picks?.[gsId(m)] || {};
+  const counts = {};
+  let n = 0;
+  Object.values(byModel).forEach(p => { n++; const k = p.s.join('–'); counts[k] = (counts[k] || 0) + 1; });
+  const mode = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  if (!mode) return null;
+  // signo del consenso (marcador moda)
+  const [h, a] = mode[0].split('–').map(Number);
+  return { score: mode[0], n, votes: mode[1], sign: h > a ? 'home' : h < a ? 'away' : 'draw' };
 }
 
 async function loadData() {
@@ -141,11 +165,42 @@ function render() {
         <td class="bebas" style="font-size: 18px; color: #0A5B2D;">${t.pts}</td>
       </tr>`).join('');
 
-    const playedLine = played.length
-      ? `<div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #6B675C;">
-          ${played.map(m => { const r = result(m); return `<span>${esc(m.home_team)} ${r.s[0]}–${r.s[1]} ${esc(m.away_team)}</span>`; }).join('')}
-        </div>`
-      : '';
+    const fixtures = [...matches].sort((a, b) => kickoff(a) - kickoff(b)).map(m => {
+      const r = result(m);
+      const lv = liveScore(m);
+      const cons = consensus(m);
+      let centro, ia = '';
+      if (lv) {
+        centro = `<span class="bebas" style="font-size: 20px; color: #C8372D;">${lv.s[0]}–${lv.s[1]}</span> <span class="wcb-blink" style="font-size: 9px; font-weight: 800; color: #C8372D;">&#9679; EN VIVO</span>`;
+      } else if (r) {
+        centro = `<span class="bebas" style="font-size: 20px; color: #17150F;">${r.s[0]}–${r.s[1]}</span>`;
+      } else {
+        centro = `<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #6B675C;">${fmtDay(m)} · ${fmtTime(m)} h</span>`;
+      }
+      if (cons) {
+        if (r) {
+          const o = r.o || (r.s[0] > r.s[1] ? 'home' : r.s[0] < r.s[1] ? 'away' : 'draw');
+          const ok = cons.sign === o;
+          const exact = cons.score === `${r.s[0]}–${r.s[1]}`;
+          ia = `<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.04em; color: ${ok ? '#0A5B2D' : '#C8372D'};">IA: ${cons.score} ${exact ? '&#9733;' : ok ? '&#10003;' : '&#10005;'}</span>`;
+        } else {
+          ia = `<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.04em; color: #8A8470;">IA: ${cons.score}</span>`;
+        }
+      }
+      return `
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr 64px; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px dashed #DCD3BC; font-size: 12px;">
+          <span style="text-align: right; white-space: nowrap;"><strong>${esc(m.home_team)}</strong> <span style="font-size: 14px;">${codeToFlag(m.home_team)}</span></span>
+          <span style="text-align: center; min-width: 86px;">${centro}</span>
+          <span style="white-space: nowrap;"><span style="font-size: 14px;">${codeToFlag(m.away_team)}</span> <strong>${esc(m.away_team)}</strong></span>
+          <span style="text-align: right;">${ia}</span>
+        </div>`;
+    }).join('');
+
+    const playedLine = `
+      <div style="margin-top: 12px; border-top: 2px solid #17150F; padding-top: 4px;">
+        <div style="font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #6B675C; padding: 4px 0 2px;">Partidos</div>
+        ${fixtures}
+      </div>`;
 
     const notesHtml = notes.length
       ? `<div style="margin-top: 10px; padding: 8px 10px; background: #F3ECD8; border: 1.5px dashed #17150F; border-radius: 3px; font-size: 11px; line-height: 1.5; color: #4A463A;">${notes.map(esc).join('<br>')}</div>`
