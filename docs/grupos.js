@@ -171,28 +171,36 @@ function render() {
       const cons = consensus(m);
       let centro, ia = '';
       if (lv) {
-        centro = `<span class="bebas" style="font-size: 20px; color: #C8372D;">${lv.s[0]}–${lv.s[1]}</span> <span class="wcb-blink" style="font-size: 9px; font-weight: 800; color: #C8372D;">&#9679; EN VIVO</span>`;
+        centro = `<span class="bebas" style="font-size: 28px; line-height: 1; color: #C8372D;">${lv.s[0]}–${lv.s[1]}</span><span class="wcb-blink" style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #C8372D;">&#9679; EN VIVO</span>`;
       } else if (r) {
-        centro = `<span class="bebas" style="font-size: 20px; color: #17150F;">${r.s[0]}–${r.s[1]}</span>`;
+        centro = `<span class="bebas" style="font-size: 28px; line-height: 1; color: #17150F;">${r.s[0]}–${r.s[1]}</span>`;
       } else {
-        centro = `<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #6B675C;">${fmtDay(m)} · ${fmtTime(m)} h</span>`;
+        centro = `<span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #4A463A;">${fmtDay(m)} · ${fmtTime(m)} h</span>`;
       }
       if (cons) {
         if (r) {
           const o = r.o || (r.s[0] > r.s[1] ? 'home' : r.s[0] < r.s[1] ? 'away' : 'draw');
           const ok = cons.sign === o;
           const exact = cons.score === `${r.s[0]}–${r.s[1]}`;
-          ia = `<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.04em; color: ${ok ? '#0A5B2D' : '#C8372D'};">IA: ${cons.score} ${exact ? '&#9733;' : ok ? '&#10003;' : '&#10005;'}</span>`;
+          ia = `<span style="font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: ${ok ? '#0A5B2D' : '#C8372D'};">IA: ${cons.score} ${exact ? '&#9733;' : ok ? '&#10003;' : '&#10005;'}</span>`;
         } else {
-          ia = `<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.04em; color: #8A8470;">IA: ${cons.score}</span>`;
+          ia = `<span style="font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: #8A8470;">IA: ${cons.score}</span>`;
         }
       }
       return `
-        <div style="display: grid; grid-template-columns: 1fr auto 1fr 64px; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px dashed #DCD3BC; font-size: 12px;">
-          <span style="text-align: right; white-space: nowrap;"><strong>${esc(m.home_team)}</strong> <span style="font-size: 14px;">${codeToFlag(m.home_team)}</span></span>
-          <span style="text-align: center; min-width: 86px;">${centro}</span>
-          <span style="white-space: nowrap;"><span style="font-size: 14px;">${codeToFlag(m.away_team)}</span> <strong>${esc(m.away_team)}</strong></span>
-          <span style="text-align: right;">${ia}</span>
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px dashed #DCD3BC;">
+          <span style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 0;">
+            <span class="bebas" style="font-size: 19px; letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(teamName(m.home_team))}</span>
+            <span style="font-size: 20px; flex: none;">${codeToFlag(m.home_team)}</span>
+          </span>
+          <span style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 120px;">
+            ${centro}
+            ${ia}
+          </span>
+          <span style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+            <span style="font-size: 20px; flex: none;">${codeToFlag(m.away_team)}</span>
+            <span class="bebas" style="font-size: 19px; letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(teamName(m.away_team))}</span>
+          </span>
         </div>`;
     }).join('');
 
